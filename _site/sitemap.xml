@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://localhost:4000/frontmtcon.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/multitenant.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/mutrtssrf.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/svgtest.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/vectors.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/conisoluri.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/redos.html</loc>
+</url>
+</urlset>

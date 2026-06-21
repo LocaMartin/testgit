@@ -1,0 +1,651 @@
+<h2 id="1-information-disclosure--context-leak-tests">1. Information Disclosure / Context Leak Tests</h2>
+<p>Check if the following tags render raw system strings, tokens, or environment details when viewed on the live platform:</p>
+<ul>
+    <li>
+        <strong>Global Site Objects:</strong>
+        <code class="language-plaintext highlighter-rouge">{
+&amp;quot;tags &amp;quot;: {},
+&amp;quot;config &amp;quot;: null,
+&amp;quot;data &amp;quot;: {},
+&amp;quot;static_files &amp;quot;: [
+  {
+    &amp;quot;modified_time &amp;quot;: &amp;quot;2026-06-18 19:43:57 +0530 &amp;quot;,
+    &amp;quot;name &amp;quot;: &amp;quot;README.md &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/README.md &amp;quot;,
+    &amp;quot;collection &amp;quot;: null,
+    &amp;quot;basename &amp;quot;: &amp;quot;README &amp;quot;,
+    &amp;quot;extname &amp;quot;: &amp;quot;.md &amp;quot;
+  },
+  {
+    &amp;quot;modified_time &amp;quot;: &amp;quot;2026-06-19 09:25:26 +0530 &amp;quot;,
+    &amp;quot;name &amp;quot;: &amp;quot;coll.py &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/coll.py &amp;quot;,
+    &amp;quot;collection &amp;quot;: null,
+    &amp;quot;basename &amp;quot;: &amp;quot;coll &amp;quot;,
+    &amp;quot;extname &amp;quot;: &amp;quot;.py &amp;quot;
+  },
+  {
+    &amp;quot;modified_time &amp;quot;: &amp;quot;2026-06-19 09:26:09 +0530 &amp;quot;,
+    &amp;quot;name &amp;quot;: &amp;quot;colltestlocal.py &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/colltestlocal.py &amp;quot;,
+    &amp;quot;collection &amp;quot;: null,
+    &amp;quot;basename &amp;quot;: &amp;quot;colltestlocal &amp;quot;,
+    &amp;quot;extname &amp;quot;: &amp;quot;.py &amp;quot;
+  },
+  {
+    &amp;quot;modified_time &amp;quot;: &amp;quot;2026-06-19 09:24:26 +0530 &amp;quot;,
+    &amp;quot;name &amp;quot;: &amp;quot;filed.py &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/filed.py &amp;quot;,
+    &amp;quot;collection &amp;quot;: null,
+    &amp;quot;basename &amp;quot;: &amp;quot;filed &amp;quot;,
+    &amp;quot;extname &amp;quot;: &amp;quot;.py &amp;quot;
+  },
+  {
+    &amp;quot;modified_time &amp;quot;: &amp;quot;2026-06-18 20:20:03 +0530 &amp;quot;,
+    &amp;quot;name &amp;quot;: &amp;quot;large.txt &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/large.txt &amp;quot;,
+    &amp;quot;collection &amp;quot;: null,
+    &amp;quot;basename &amp;quot;: &amp;quot;large &amp;quot;,
+    &amp;quot;extname &amp;quot;: &amp;quot;.txt &amp;quot;
+  },
+  {
+    &amp;quot;modified_time &amp;quot;: &amp;quot;2026-06-19 19:45:43 +0530 &amp;quot;,
+    &amp;quot;name &amp;quot;: &amp;quot;leak.md &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/leak.md &amp;quot;,
+    &amp;quot;collection &amp;quot;: null,
+    &amp;quot;basename &amp;quot;: &amp;quot;leak &amp;quot;,
+    &amp;quot;extname &amp;quot;: &amp;quot;.md &amp;quot;
+  },
+  {
+    &amp;quot;modified_time &amp;quot;: &amp;quot;2026-06-19 09:45:01 +0530 &amp;quot;,
+    &amp;quot;name &amp;quot;: &amp;quot;liquide.md &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/liquide.md &amp;quot;,
+    &amp;quot;collection &amp;quot;: null,
+    &amp;quot;basename &amp;quot;: &amp;quot;liquide &amp;quot;,
+    &amp;quot;extname &amp;quot;: &amp;quot;.md &amp;quot;
+  },
+  {
+    &amp;quot;modified_time &amp;quot;: &amp;quot;2026-06-18 21:37:06 +0530 &amp;quot;,
+    &amp;quot;name &amp;quot;: &amp;quot;liquidexposure.html &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/liquidexposure.html &amp;quot;,
+    &amp;quot;collection &amp;quot;: null,
+    &amp;quot;basename &amp;quot;: &amp;quot;liquidexposure &amp;quot;,
+    &amp;quot;extname &amp;quot;: &amp;quot;.html &amp;quot;
+  },
+  {
+    &amp;quot;modified_time &amp;quot;: &amp;quot;2026-06-19 09:45:56 +0530 &amp;quot;,
+    &amp;quot;name &amp;quot;: &amp;quot;liquidexposure2.md &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/liquidexposure2.md &amp;quot;,
+    &amp;quot;collection &amp;quot;: null,
+    &amp;quot;basename &amp;quot;: &amp;quot;liquidexposure2 &amp;quot;,
+    &amp;quot;extname &amp;quot;: &amp;quot;.md &amp;quot;
+  },
+  {
+    &amp;quot;modified_time &amp;quot;: &amp;quot;2026-06-19 13:47:54 +0530 &amp;quot;,
+    &amp;quot;name &amp;quot;: &amp;quot;results.txt &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/results.txt &amp;quot;,
+    &amp;quot;collection &amp;quot;: null,
+    &amp;quot;basename &amp;quot;: &amp;quot;results &amp;quot;,
+    &amp;quot;extname &amp;quot;: &amp;quot;.txt &amp;quot;
+  },
+  {
+    &amp;quot;modified_time &amp;quot;: &amp;quot;2026-06-18 19:48:31 +0530 &amp;quot;,
+    &amp;quot;name &amp;quot;: &amp;quot;test-liquid.md &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/test-liquid.md &amp;quot;,
+    &amp;quot;collection &amp;quot;: null,
+    &amp;quot;basename &amp;quot;: &amp;quot;test-liquid &amp;quot;,
+    &amp;quot;extname &amp;quot;: &amp;quot;.md &amp;quot;
+  },
+  {
+    &amp;quot;modified_time &amp;quot;: &amp;quot;2026-06-19 12:11:50 +0530 &amp;quot;,
+    &amp;quot;name &amp;quot;: &amp;quot;test1.sh &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/test1.sh &amp;quot;,
+    &amp;quot;collection &amp;quot;: null,
+    &amp;quot;basename &amp;quot;: &amp;quot;test1 &amp;quot;,
+    &amp;quot;extname &amp;quot;: &amp;quot;.sh &amp;quot;
+  },
+  {
+    &amp;quot;modified_time &amp;quot;: &amp;quot;2026-06-19 13:36:38 +0530 &amp;quot;,
+    &amp;quot;name &amp;quot;: &amp;quot;test2.sh &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/test2.sh &amp;quot;,
+    &amp;quot;collection &amp;quot;: null,
+    &amp;quot;basename &amp;quot;: &amp;quot;test2 &amp;quot;,
+    &amp;quot;extname &amp;quot;: &amp;quot;.sh &amp;quot;
+  }
+],
+&amp;quot;categories &amp;quot;: {},
+&amp;quot;collections &amp;quot;: [
+  {
+    &amp;quot;files &amp;quot;: [],
+    &amp;quot;directory &amp;quot;: &amp;quot;/home/loca/testgit/_posts &amp;quot;,
+    &amp;quot;relative_directory &amp;quot;: &amp;quot;_posts &amp;quot;,
+    &amp;quot;docs &amp;quot;: [],
+    &amp;quot;output &amp;quot;: true,
+    &amp;quot;label &amp;quot;: &amp;quot;posts &amp;quot;,
+    &amp;quot;permalink &amp;quot;: &amp;quot;/:categories/:year/:month/:day/:title:output_ext &amp;quot;
+  }
+],
+&amp;quot;html_pages &amp;quot;: [
+  &amp;quot;&amp;lt;p &amp;gt;&amp;amp;lt;!DOCTYPE html &amp;amp;gt;&amp;lt;/p &amp;gt;\n &amp;lt;html lang=\&amp;quot;en\&amp;quot;&amp;gt;\n &amp;lt;head &amp;gt;\n    &amp;lt;meta charset=\&amp;quot;UTF-8\&amp;quot; /&amp;gt;\n    &amp;lt;title &amp;gt;GitHub Metadata Live Debugger &amp;lt;/title &amp;gt;\n    &amp;lt;style &amp;gt;\n        body { font-family: -apple-system, BlinkMacSystemFont, \&amp;quot;Segoe UI\&amp;quot;, Roboto, sans-serif; padding: 2rem; background: #f6f8fa; color: #24292f; }\n        .container { max-width: 800px; margin: 0 auto; }\n        h1, h2 { border-bottom: 1px solid #d0d7de; padding-bottom: 0.3em; }\n        .variable-card { background: white; border: 1px solid #d0d7de; border-radius: 6px; margin-bottom: 12px; padding: 16px; }\n        .var-name { font-family: monospace; font-weight: bold; color: #0969da; font-size: 1.1em; }\n        .var-val { font-family: monospace; background: #afb8c133; padding: 3px 6px; border-radius: 3px; display: inline-block; margin-top: 8px; word-break: break-all; }\n        .empty { color: #8c959f; font-style: italic; }\n        .filter-box { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #d0d7de; border-radius: 6px; box-sizing: border-box; font-size: 1em; }\n        pre { background: #24292f; color: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }\n    &amp;lt;/style &amp;gt;\n &amp;lt;/head &amp;gt;\n &amp;lt;body &amp;gt;\n &amp;lt;div class=\&amp;quot;container\&amp;quot;&amp;gt;\n\n    &amp;lt;h1 &amp;gt;GitHub Metadata Variables &amp;lt;/h1 &amp;gt;\n    &amp;lt;p &amp;gt;Use the input box to search or look at specific keys one by one:&amp;lt;/p &amp;gt;\n    \n    &amp;lt;input type=\&amp;quot;text\&amp;quot; id=\&amp;quot;search\&amp;quot; class=\&amp;quot;filter-box\&amp;quot; placeholder=\&amp;quot;Type variable name to filter (e.g., owner_name)...\&amp;quot; onkeyup=\&amp;quot;filterVars()\&amp;quot; /&amp;gt;\n\n    &amp;lt;div id=\&amp;quot;var-list\&amp;quot;&amp;gt;\n        \n        \n        &amp;lt;div class=\&amp;quot;variable-card\&amp;quot; data-name=\&amp;quot;owner_name\&amp;quot;&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-name\&amp;quot;&amp;gt;site.github.owner_name &amp;lt;/span &amp;gt;&amp;lt;br /&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-val\&amp;quot;&amp;gt;LocaMartin &amp;lt;/span &amp;gt;\n        &amp;lt;/div &amp;gt;\n\n        &amp;lt;div class=\&amp;quot;variable-card\&amp;quot; data-name=\&amp;quot;repository_url\&amp;quot;&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-name\&amp;quot;&amp;gt;site.github.repository_url &amp;lt;/span &amp;gt;&amp;lt;br /&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-val\&amp;quot;&amp;gt;https://github.com/LocaMartin/testgit &amp;lt;/span &amp;gt;\n        &amp;lt;/div &amp;gt;\n\n        &amp;lt;div class=\&amp;quot;variable-card\&amp;quot; data-name=\&amp;quot;repository_nwo\&amp;quot;&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-name\&amp;quot;&amp;gt;site.github.repository_nwo &amp;lt;/span &amp;gt;&amp;lt;br /&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-val\&amp;quot;&amp;gt;LocaMartin/testgit &amp;lt;/span &amp;gt;\n        &amp;lt;/div &amp;gt;\n\n        &amp;lt;div class=\&amp;quot;variable-card\&amp;quot; data-name=\&amp;quot;baseurl\&amp;quot;&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-name\&amp;quot;&amp;gt;site.github.baseurl &amp;lt;/span &amp;gt;&amp;lt;br /&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-val\&amp;quot;&amp;gt;/pages/LocaMartin/testgit &amp;lt;/span &amp;gt;\n        &amp;lt;/div &amp;gt;\n\n        &amp;lt;div class=\&amp;quot;variable-card\&amp;quot; data-name=\&amp;quot;is_project_page\&amp;quot;&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-name\&amp;quot;&amp;gt;site.github.is_project_page &amp;lt;/span &amp;gt;&amp;lt;br /&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-val\&amp;quot;&amp;gt;true &amp;lt;/span &amp;gt;\n        &amp;lt;/div &amp;gt;\n    &amp;lt;/div &amp;gt;\n\n    &amp;lt;h2 &amp;gt;Raw Complete Dump (JSON)&amp;lt;/h2 &amp;gt;\n    &amp;lt;pre &amp;gt;&amp;lt;code &amp;gt;{\&amp;quot;api_url\&amp;quot;:\&amp;quot;https://api.github.com\&amp;quot;,\&amp;quot;archived\&amp;quot;:null,\&amp;quot;baseurl\&amp;quot;:\&amp;quot;/pages/LocaMartin/testgit\&amp;quot;,\&amp;quot;build_revision\&amp;quot;:\&amp;quot;7ba1d051236d60435a56749b47909fabc2cd73c2\&amp;quot;,\&amp;quot;clone_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin/testgit.git\&amp;quot;,\&amp;quot;contributors\&amp;quot;:false,\&amp;quot;disabled\&amp;quot;:null,\&amp;quot;environment\&amp;quot;:\&amp;quot;development\&amp;quot;,\&amp;quot;help_url\&amp;quot;:\&amp;quot;https://docs.github.com\&amp;quot;,\&amp;quot;hostname\&amp;quot;:\&amp;quot;github.com\&amp;quot;,\&amp;quot;is_project_page\&amp;quot;:true,\&amp;quot;is_user_page\&amp;quot;:false,\&amp;quot;issues_url\&amp;quot;:null,\&amp;quot;language\&amp;quot;:null,\&amp;quot;latest_release\&amp;quot;:false,\&amp;quot;license\&amp;quot;:null,\&amp;quot;organization_members\&amp;quot;:null,\&amp;quot;owner\&amp;quot;:{\&amp;quot;avatar_url\&amp;quot;:null,\&amp;quot;bio\&amp;quot;:null,\&amp;quot;blog\&amp;quot;:null,\&amp;quot;collaborators\&amp;quot;:null,\&amp;quot;company\&amp;quot;:null,\&amp;quot;created_at\&amp;quot;:null,\&amp;quot;description\&amp;quot;:null,\&amp;quot;email\&amp;quot;:null,\&amp;quot;followers\&amp;quot;:null,\&amp;quot;following\&amp;quot;:null,\&amp;quot;has_organization_projects\&amp;quot;:null,\&amp;quot;has_repository_projects\&amp;quot;:null,\&amp;quot;hireable\&amp;quot;:null,\&amp;quot;html_url\&amp;quot;:null,\&amp;quot;id\&amp;quot;:null,\&amp;quot;is_verified\&amp;quot;:null,\&amp;quot;location\&amp;quot;:null,\&amp;quot;login\&amp;quot;:null,\&amp;quot;name\&amp;quot;:null,\&amp;quot;node_id\&amp;quot;:null,\&amp;quot;public_gists\&amp;quot;:null,\&amp;quot;public_repos\&amp;quot;:null,\&amp;quot;type\&amp;quot;:null,\&amp;quot;updated_at\&amp;quot;:null},\&amp;quot;owner_display_name\&amp;quot;:null,\&amp;quot;owner_gravatar_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin.png\&amp;quot;,\&amp;quot;owner_name\&amp;quot;:\&amp;quot;LocaMartin\&amp;quot;,\&amp;quot;owner_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin\&amp;quot;,\&amp;quot;pages_env\&amp;quot;:\&amp;quot;development\&amp;quot;,\&amp;quot;pages_hostname\&amp;quot;:\&amp;quot;localhost:4000\&amp;quot;,\&amp;quot;private\&amp;quot;:null,\&amp;quot;project_tagline\&amp;quot;:null,\&amp;quot;project_title\&amp;quot;:\&amp;quot;testgit\&amp;quot;,\&amp;quot;public_repositories\&amp;quot;:[],\&amp;quot;releases\&amp;quot;:false,\&amp;quot;releases_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin/testgit/releases\&amp;quot;,\&amp;quot;repository_name\&amp;quot;:\&amp;quot;testgit\&amp;quot;,\&amp;quot;repository_nwo\&amp;quot;:\&amp;quot;LocaMartin/testgit\&amp;quot;,\&amp;quot;repository_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin/testgit\&amp;quot;,\&amp;quot;show_downloads\&amp;quot;:null,\&amp;quot;source\&amp;quot;:{\&amp;quot;branch\&amp;quot;:\&amp;quot;gh-pages\&amp;quot;,\&amp;quot;path\&amp;quot;:\&amp;quot;/\&amp;quot;},\&amp;quot;tar_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin/testgit/tarball/gh-pages\&amp;quot;,\&amp;quot;url\&amp;quot;:\&amp;quot;https://github.com/pages/LocaMartin/testgit\&amp;quot;,\&amp;quot;versions\&amp;quot;:{\&amp;quot;jekyll\&amp;quot;:\&amp;quot;3.10.0\&amp;quot;,\&amp;quot;jekyll-sass-converter\&amp;quot;:\&amp;quot;1.5.2\&amp;quot;,\&amp;quot;kramdown\&amp;quot;:\&amp;quot;2.4.0\&amp;quot;,\&amp;quot;kramdown-parser-gfm\&amp;quot;:\&amp;quot;1.1.0\&amp;quot;,\&amp;quot;jekyll-commonmark-ghpages\&amp;quot;:\&amp;quot;0.5.1\&amp;quot;,\&amp;quot;liquid\&amp;quot;:\&amp;quot;4.0.4\&amp;quot;,\&amp;quot;rouge\&amp;quot;:\&amp;quot;3.30.0\&amp;quot;,\&amp;quot;github-pages-health-check\&amp;quot;:\&amp;quot;1.18.2\&amp;quot;,\&amp;quot;jekyll-redirect-from\&amp;quot;:\&amp;quot;0.16.0\&amp;quot;,\&amp;quot;jekyll-sitemap\&amp;quot;:\&amp;quot;1.4.0\&amp;quot;,\&amp;quot;jekyll-feed\&amp;quot;:\&amp;quot;0.17.0\&amp;quot;,\&amp;quot;jekyll-gist\&amp;quot;:\&amp;quot;1.5.0\&amp;quot;,\&amp;quot;jekyll-paginate\&amp;quot;:\&amp;quot;1.1.0\&amp;quot;,\&amp;quot;jekyll-coffeescript\&amp;quot;:\&amp;quot;1.2.2\&amp;quot;,\&amp;quot;jekyll-seo-tag\&amp;quot;:\&amp;quot;2.8.0\&amp;quot;,\&amp;quot;jekyll-github-metadata\&amp;quot;:\&amp;quot;2.16.1\&amp;quot;,\&amp;quot;jekyll-avatar\&amp;quot;:\&amp;quot;0.8.0\&amp;quot;,\&amp;quot;jekyll-remote-theme\&amp;quot;:\&amp;quot;0.4.3\&amp;quot;,\&amp;quot;jekyll-include-cache\&amp;quot;:\&amp;quot;0.2.1\&amp;quot;,\&amp;quot;jemoji\&amp;quot;:\&amp;quot;0.13.0\&amp;quot;,\&amp;quot;jekyll-mentions\&amp;quot;:\&amp;quot;1.6.0\&amp;quot;,\&amp;quot;jekyll-relative-links\&amp;quot;:\&amp;quot;0.6.1\&amp;quot;,\&amp;quot;jekyll-optional-front-matter\&amp;quot;:\&amp;quot;0.3.2\&amp;quot;,\&amp;quot;jekyll-readme-index\&amp;quot;:\&amp;quot;0.3.0\&amp;quot;,\&amp;quot;jekyll-default-layout\&amp;quot;:\&amp;quot;0.1.5\&amp;quot;,\&amp;quot;jekyll-titles-from-headings\&amp;quot;:\&amp;quot;0.5.3\&amp;quot;,\&amp;quot;minima\&amp;quot;:\&amp;quot;2.5.1\&amp;quot;,\&amp;quot;jekyll-swiss\&amp;quot;:\&amp;quot;1.0.0\&amp;quot;,\&amp;quot;jekyll-theme-primer\&amp;quot;:\&amp;quot;0.6.0\&amp;quot;,\&amp;quot;jekyll-theme-architect\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-cayman\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-dinky\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-hacker\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-leap-day\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-merlot\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-midnight\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-minimal\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-modernist\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-slate\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-tactile\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-time-machine\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;ruby\&amp;quot;:\&amp;quot;3.3.8\&amp;quot;,\&amp;quot;github-pages\&amp;quot;:\&amp;quot;232\&amp;quot;,\&amp;quot;html-pipeline\&amp;quot;:\&amp;quot;2.14.3\&amp;quot;,\&amp;quot;sass\&amp;quot;:\&amp;quot;3.7.4\&amp;quot;,\&amp;quot;safe_yaml\&amp;quot;:\&amp;quot;1.0.5\&amp;quot;,\&amp;quot;nokogiri\&amp;quot;:\&amp;quot;1.19.4\&amp;quot;},\&amp;quot;wiki_url\&amp;quot;:null,\&amp;quot;zip_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin/testgit/zipball/gh-pages\&amp;quot;}&amp;lt;/code &amp;gt;&amp;lt;/pre &amp;gt;\n\n &amp;lt;/div &amp;gt;\n\n &amp;lt;script &amp;gt;\n    function filterVars() {\n        let input = document.getElementById(&amp;apos;search &amp;apos;).value.toLowerCase();\n        let cards = document.getElementsByClassName(&amp;apos;variable-card &amp;apos;);\n        \n        for (let i = 0; i &amp;lt; cards.length; i++) {\n            let name = cards[i].getAttribute(&amp;apos;data-name &amp;apos;);\n            if (name.includes(input)) {\n                cards[i].style.display = \&amp;quot;\&amp;quot;;\n            } else {\n                cards[i].style.display = \&amp;quot;none\&amp;quot;;\n            }\n        }\n    }\n &amp;lt;/script &amp;gt;\n &amp;lt;/body &amp;gt;\n &amp;lt;/html &amp;gt;\n &amp;quot;,
+  &amp;quot;## 1. Information Disclosure / Context Leak Tests\n\nCheck if the following tags render raw system strings, tokens, or environment details when viewed on the live platform:\n\n* **Global Site Objects:** </code>
+        {{ site | inspect }}<code class="language-plaintext highlighter-rouge">\n* **GitHub Metadata Dump:** </code>
+        {{ site.github | json }}<code class="language-plaintext highlighter-rouge">\n* **Environment Verification:** </code>
+        {{ site.env | inspect }}<code class="language-plaintext highlighter-rouge">\n* **Pages Collection Metadata:** </code>
+        {{ site.pages | inspect }}<code class="language-plaintext highlighter-rouge">\n\n---\n\n## 2. Cross-Site Scripting (XSS) / Filter Bypasses\n\n### Standard Script Tags\n &amp;lt;script &amp;gt;alert(document.domain)&amp;lt;/script &amp;gt;\n\n### URI Handler Scheme\n[Execute Test Payload](javascript:alert(document.cookie))\n\n &amp;lt;a href=\&amp;quot;javascript:alert(1)\&amp;quot;&amp;gt;Raw Anchor Link Test &amp;lt;/a &amp;gt;\n\n---\n\n## 3. Namespace Confusion via SVG </code>
+        foreignObject<code class="language-plaintext highlighter-rouge">\n\nThis test checks if the Markdown sanitizer scans inside embedded XML schemas. If successful, the image tag inside the XHTML body wrapper will execute.\n\n &amp;lt;svg width=\&amp;quot;200\&amp;quot; height=\&amp;quot;100\&amp;quot;&amp;gt;\n  &amp;lt;foreignObject width=\&amp;quot;200\&amp;quot; height=\&amp;quot;100\&amp;quot;&amp;gt;\n    &amp;lt;body xmlns=\&amp;quot;http://www.w3.org/1999/xhtml\&amp;quot;&amp;gt;\n      &amp;lt;img src=\&amp;quot;does-not-exist.jpg\&amp;quot; onerror=\&amp;quot;alert(&amp;apos;XSS-via-foreignObject &amp;apos;)\&amp;quot;&amp;gt;\n    &amp;lt;/body &amp;gt;\n  &amp;lt;/foreignObject &amp;gt;\n &amp;lt;/svg &amp;gt;\n\n---\n\n## 4. Deep Parser Stress Tests (ReDoS / Pipeline Timeout)\n\nThese strings test if the platform &amp;apos;s backend implementation of Kramdown handles deeply recursive nesting safely or if it stalls the build process.\n\n &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; Deep Blockquote Nesting\n\n[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[Deep Bracket Nesting]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]\n &amp;quot;,
+  &amp;quot;{{ site }}\n\n{{ page }}\n\n{{ site.github }}\n\n{{ site.pages }}\n\n{{ site.static_files }}\n\n{{ site.collections }}\n &amp;quot;,
+  &amp;quot;# HTML Processing\n\n &amp;lt;iframe src=\&amp;quot;https://example.com\&amp;quot;&amp;gt;&amp;lt;/iframe &amp;gt;\n\n &amp;lt;object data=\&amp;quot;test\&amp;quot;&amp;gt;&amp;lt;/object &amp;gt;\n\n &amp;lt;embed src=\&amp;quot;test\&amp;quot;&amp;gt;&amp;lt;/embed &amp;gt;\n\n &amp;lt;svg &amp;gt;\n  &amp;lt;animate attributeName=\&amp;quot;x\&amp;quot; /&amp;gt;\n &amp;lt;/svg &amp;gt;\n\n &amp;lt;details &amp;gt;\n  &amp;lt;summary &amp;gt;Click &amp;lt;/summary &amp;gt;\n  Hidden text\n &amp;lt;/details &amp;gt;\n &amp;quot;,
+  &amp;quot;| Component | Version | Source Code / Repository Link |\n| :--- | :--- | :--- |\n| **Core Engines &amp;amp; Interpreters** | | |\n| Ruby | 3.3.8 | [github.com/ruby/ruby](https://github.com/ruby/ruby/tree/v3_3_8) |\n| Jekyll | 3.10.0 | [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll/tree/v3.10.0) |\n| Liquid | 4.0.4 | [github.com/Shopify/liquid](https://github.com/Shopify/liquid/tree/v4.0.4) |\n| **Heavyweight Parsers &amp;amp; Security Layers** | | |\n| Nokogiri | 1.19.4 | [github.com/sparklemotion/nokogiri](https://github.com/sparklemotion/nokogiri/tree/v1.19.4) |\n| Safe YAML | 1.0.5 | [github.com/dtao/safe_yaml](https://github.com/dtao/safe_yaml/tree/1.0.5) |\n| HTML Pipeline | 2.14.3 | [github.com/gjtorikian/html-pipeline](https://github.com/gjtorikian/html-pipeline/tree/v2.14.3) |\n| Kramdown | 2.4.0 | [github.com/vmg/kramdown](https://github.com/vmg/kramdown/tree/2.4.0) |\n| Kramdown Parser GFM | 1.1.0 | [github.com/kramdown/parser-gfm](https://github.com/kramdown/parser-gfm/tree/v1.1.0) |\n| Rouge | 3.30.0 | [github.com/rouge-ruby/rouge](https://github.com/rouge-ruby/rouge/tree/v3.30.0) |\n| Sass | 3.7.4 | [github.com/sass/rubysass](https://github.com/sass/rubysass/tree/3.7.4) |\n| **GitHub Master Ecosystem &amp;amp; Extensions** | | |\n| github-pages (Meta-gem) | 232 | [github.com/github/pages-gem](https://github.com/github/pages-gem/tree/v232) |\n| jekyll-github-metadata | 2.16.1 | [github.com/github/jekyll-github-metadata](https://github.com/github/jekyll-github-metadata/tree/v2.16.1) |\n| jekyll-remote-theme | 0.4.3 | [github.com/github/jekyll-remote-theme](https://github.com/github/jekyll-remote-theme/tree/v0.4.3) |\n| github-pages-health-check | 1.18.2 | [github.com/github/github-pages-health-check](https://github.com/github/github-pages-health-check/tree/v1.18.2) |\n| jekyll-commonmark-ghpages | 0.5.1 | [github.com/github/jekyll-commonmark-ghpages](https://github.com/github/jekyll-commonmark-ghpages/tree/v0.5.1) |\n| **Jekyll Functional Plugins** | | |\n| jekyll-sass-converter | 1.5.2 | [github.com/jekyll/jekyll-sass-converter](https://github.com/jekyll/jekyll-sass-converter/tree/v1.5.2) |\n| jekyll-redirect-from | 0.16.0 | [github.com/jekyll/jekyll-redirect-from](https://github.com/jekyll/jekyll-redirect-from/tree/v0.16.0) |\n| jekyll-sitemap | 1.4.0 | [github.com/jekyll/jekyll-sitemap](https://github.com/jekyll/jekyll-sitemap/tree/v1.4.0) |\n| jekyll-feed | 0.17.0 | [github.com/jekyll/jekyll-feed](https://github.com/jekyll/jekyll-feed/tree/v0.17.0) |\n| jekyll-gist | 1.5.0 | [github.com/jekyll/jekyll-gist](https://github.com/jekyll/jekyll-gist/tree/v1.5.0) |\n| jekyll-paginate | 1.1.0 | [github.com/jekyll/jekyll-paginate](https://github.com/jekyll/jekyll-paginate/tree/v1.1.0) |\n| jekyll-coffeescript | 1.2.2 | [github.com/jekyll/jekyll-coffeescript](https://github.com/jekyll/jekyll-coffeescript/tree/v1.2.2) |\n| jekyll-seo-tag | 2.8.0 | [github.com/jekyll/jekyll-seo-tag](https://github.com/jekyll/jekyll-seo-tag/tree/v2.8.0) |\n| jekyll-avatar | 0.8.0 | [github.com/jekyll/jekyll-avatar](https://github.com/jekyll/jekyll-avatar/tree/v0.8.0) |\n| jekyll-include-cache | 0.2.1 | [github.com/jekyll/jekyll-include-cache](https://github.com/jekyll/jekyll-include-cache/tree/v0.2.1) |\n| jemoji | 0.13.0 | [github.com/jekyll/jemoji](https://github.com/jekyll/jemoji/tree/v0.13.0) |\n| jekyll-mentions | 1.6.0 | [github.com/jekyll/jekyll-mentions](https://github.com/jekyll/jekyll-mentions/tree/v1.6.0) |\n| jekyll-relative-links | 0.6.1 | [github.com/jekyll/jekyll-relative-links](https://github.com/jekyll/jekyll-relative-links/tree/v0.6.1) |\n| jekyll-optional-front-matter| 0.3.2 | [github.com/jekyll/jekyll-optional-front-matter](https://github.com/jekyll/jekyll-optional-front-matter/tree/v0.3.2) |\n| jekyll-readme-index | 0.3.0 | [github.com/jekyll/jekyll-readme-index](https://github.com/jekyll/jekyll-readme-index/tree/v0.3.0) |\n| jekyll-default-layout | 0.1.5 | [github.com/jekyll/jekyll-default-layout](https://github.com/jekyll/jekyll-default-layout/tree/v0.1.5) |\n| jekyll-titles-from-headings | 0.5.3 | [github.com/jekyll/jekyll-titles-from-headings](https://github.com/jekyll/jekyll-titles-from-headings/tree/v0.5.3) |\n| **Supported Whitelisted UI Themes** | | |\n| minima | 2.5.1 | [github.com/jekyll/minima](https://github.com/jekyll/minima/tree/v2.5.1) |\n| jekyll-swiss | 1.0.0 | [github.com/broccolini/swiss](https://github.com/broccolini/swiss/tree/v1.0.0) |\n| jekyll-theme-primer | 0.6.0 | [github.com/pages-themes/primer](https://github.com/pages-themes/primer/tree/v0.6.0) |\n| jekyll-theme-architect | 0.2.0 | [github.com/pages-themes/architect](https://github.com/pages-themes/architect/tree/v0.2.0) |\n| jekyll-theme-cayman | 0.2.0 | [github.com/pages-themes/cayman](https://github.com/pages-themes/cayman/tree/v0.2.0) |\n| jekyll-theme-dinky | 0.2.0 | [github.com/pages-themes/dinky](https://github.com/pages-themes/dinky/tree/v0.2.0) |\n| jekyll-theme-hacker | 0.2.0 | [github.com/pages-themes/hacker](https://github.com/pages-themes/hacker/tree/v0.2.0) |\n| jekyll-theme-leap-day | 0.2.0 | [github.com/pages-themes/leap-day](https://github.com/pages-themes/leap-day/tree/v0.2.0) |\n| jekyll-theme-merlot | 0.2.0 | [github.com/pages-themes/merlot](https://github.com/pages-themes/merlot/tree/v0.2.0) |\n| jekyll-theme-midnight | 0.2.0 | [github.com/pages-themes/midnight](https://github.com/pages-themes/midnight/tree/v0.2.0) |\n| jekyll-theme-minimal | 0.2.0 | [github.com/pages-themes/minimal](https://github.com/pages-themes/minimal/tree/v0.2.0) |\n| jekyll-theme-modernist | 0.2.0 | [github.com/pages-themes/modernist](https://github.com/pages-themes/modernist/tree/v0.2.0) |\n| jekyll-theme-slate | 0.2.0 | [github.com/pages-themes/slate](https://github.com/pages-themes/slate/tree/v0.2.0) |\n| jekyll-theme-tactile | 0.2.0 | [github.com/pages-themes/tactile](https://github.com/pages-themes/tactile/tree/v0.2.0) |\n| jekyll-theme-time-machine | 0.2.0 | [github.com/pages-themes/time-machine](https://github.com/pages-themes/time-machine/tree/v0.2.0) |\n &amp;quot;,
+  &amp;quot;{% comment %}\n{{ site.github.owner }}\n{{ site.github.repository_url }}\n{{ site.github.releases }}\n{{ site.github.latest_release }}\n{{ site.github.organization_members }}\n{{ site.github.public_repositories }}\n{{ site.github | jsonify }}\n{{ site | jsonify }}\n{{ page | jsonify }}\n{{ site.pages | jsonify }}\n{{ site.static_files | jsonify }}\n{{ site.collections | jsonify }}\n{{ site.data | jsonify }}\n{% for p in site.pages %}\n{{ p.path }}\n{% endfor %}\n{% for f in site.static_files %}\n{{ f.path }}\n{% endfor %}\n{% endcomment %}\n &amp;quot;,
+  &amp;quot;{% comment %}\n{{ site.github.owner }}\n{{ site.github.repository_url }}\n{{ site.github.releases }}\n{{ site.github.latest_release }}\n{{ site.github.organization_members }}\n{{ site.github.public_repositories }}\n{{ site.github | jsonify }}\n{{ site | jsonify }}\n{{ page | jsonify }}\n{{ site.pages | jsonify }}\n{{ site.static_files | jsonify }}\n{{ site.collections | jsonify }}\n{{ site.data | jsonify }}\n{% for p in site.pages %}\n{{ p.path }}\n{% endfor %}\n{% for f in site.static_files %}\n{{ f.path }}\n{% endfor %}\n{% endcomment %}\n &amp;quot;,
+  &amp;quot;# test-liquid.md\n\n---\n\n## title: Liquid Tests\n\n# Liquid Tests\n\nSite Title:\n\n{{ site.title }}\n\nSite Object:\n\n{{ site }}\n\nPage Object:\n\n{{ page }}\n\nAssign Test:\n\n{% assign x = site %}\n{{ x }}\n\nInclude Test:\n\n{% include test.html %}\n &amp;quot;
+],
+&amp;quot;pages &amp;quot;: [
+  &amp;quot;&amp;lt;p &amp;gt;&amp;amp;lt;!DOCTYPE html &amp;amp;gt;&amp;lt;/p &amp;gt;\n &amp;lt;html lang=\&amp;quot;en\&amp;quot;&amp;gt;\n &amp;lt;head &amp;gt;\n    &amp;lt;meta charset=\&amp;quot;UTF-8\&amp;quot; /&amp;gt;\n    &amp;lt;title &amp;gt;GitHub Metadata Live Debugger &amp;lt;/title &amp;gt;\n    &amp;lt;style &amp;gt;\n        body { font-family: -apple-system, BlinkMacSystemFont, \&amp;quot;Segoe UI\&amp;quot;, Roboto, sans-serif; padding: 2rem; background: #f6f8fa; color: #24292f; }\n        .container { max-width: 800px; margin: 0 auto; }\n        h1, h2 { border-bottom: 1px solid #d0d7de; padding-bottom: 0.3em; }\n        .variable-card { background: white; border: 1px solid #d0d7de; border-radius: 6px; margin-bottom: 12px; padding: 16px; }\n        .var-name { font-family: monospace; font-weight: bold; color: #0969da; font-size: 1.1em; }\n        .var-val { font-family: monospace; background: #afb8c133; padding: 3px 6px; border-radius: 3px; display: inline-block; margin-top: 8px; word-break: break-all; }\n        .empty { color: #8c959f; font-style: italic; }\n        .filter-box { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #d0d7de; border-radius: 6px; box-sizing: border-box; font-size: 1em; }\n        pre { background: #24292f; color: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }\n    &amp;lt;/style &amp;gt;\n &amp;lt;/head &amp;gt;\n &amp;lt;body &amp;gt;\n &amp;lt;div class=\&amp;quot;container\&amp;quot;&amp;gt;\n\n    &amp;lt;h1 &amp;gt;GitHub Metadata Variables &amp;lt;/h1 &amp;gt;\n    &amp;lt;p &amp;gt;Use the input box to search or look at specific keys one by one:&amp;lt;/p &amp;gt;\n    \n    &amp;lt;input type=\&amp;quot;text\&amp;quot; id=\&amp;quot;search\&amp;quot; class=\&amp;quot;filter-box\&amp;quot; placeholder=\&amp;quot;Type variable name to filter (e.g., owner_name)...\&amp;quot; onkeyup=\&amp;quot;filterVars()\&amp;quot; /&amp;gt;\n\n    &amp;lt;div id=\&amp;quot;var-list\&amp;quot;&amp;gt;\n        \n        \n        &amp;lt;div class=\&amp;quot;variable-card\&amp;quot; data-name=\&amp;quot;owner_name\&amp;quot;&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-name\&amp;quot;&amp;gt;site.github.owner_name &amp;lt;/span &amp;gt;&amp;lt;br /&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-val\&amp;quot;&amp;gt;LocaMartin &amp;lt;/span &amp;gt;\n        &amp;lt;/div &amp;gt;\n\n        &amp;lt;div class=\&amp;quot;variable-card\&amp;quot; data-name=\&amp;quot;repository_url\&amp;quot;&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-name\&amp;quot;&amp;gt;site.github.repository_url &amp;lt;/span &amp;gt;&amp;lt;br /&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-val\&amp;quot;&amp;gt;https://github.com/LocaMartin/testgit &amp;lt;/span &amp;gt;\n        &amp;lt;/div &amp;gt;\n\n        &amp;lt;div class=\&amp;quot;variable-card\&amp;quot; data-name=\&amp;quot;repository_nwo\&amp;quot;&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-name\&amp;quot;&amp;gt;site.github.repository_nwo &amp;lt;/span &amp;gt;&amp;lt;br /&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-val\&amp;quot;&amp;gt;LocaMartin/testgit &amp;lt;/span &amp;gt;\n        &amp;lt;/div &amp;gt;\n\n        &amp;lt;div class=\&amp;quot;variable-card\&amp;quot; data-name=\&amp;quot;baseurl\&amp;quot;&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-name\&amp;quot;&amp;gt;site.github.baseurl &amp;lt;/span &amp;gt;&amp;lt;br /&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-val\&amp;quot;&amp;gt;/pages/LocaMartin/testgit &amp;lt;/span &amp;gt;\n        &amp;lt;/div &amp;gt;\n\n        &amp;lt;div class=\&amp;quot;variable-card\&amp;quot; data-name=\&amp;quot;is_project_page\&amp;quot;&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-name\&amp;quot;&amp;gt;site.github.is_project_page &amp;lt;/span &amp;gt;&amp;lt;br /&amp;gt;\n            &amp;lt;span class=\&amp;quot;var-val\&amp;quot;&amp;gt;true &amp;lt;/span &amp;gt;\n        &amp;lt;/div &amp;gt;\n    &amp;lt;/div &amp;gt;\n\n    &amp;lt;h2 &amp;gt;Raw Complete Dump (JSON)&amp;lt;/h2 &amp;gt;\n    &amp;lt;pre &amp;gt;&amp;lt;code &amp;gt;{\&amp;quot;api_url\&amp;quot;:\&amp;quot;https://api.github.com\&amp;quot;,\&amp;quot;archived\&amp;quot;:null,\&amp;quot;baseurl\&amp;quot;:\&amp;quot;/pages/LocaMartin/testgit\&amp;quot;,\&amp;quot;build_revision\&amp;quot;:\&amp;quot;7ba1d051236d60435a56749b47909fabc2cd73c2\&amp;quot;,\&amp;quot;clone_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin/testgit.git\&amp;quot;,\&amp;quot;contributors\&amp;quot;:false,\&amp;quot;disabled\&amp;quot;:null,\&amp;quot;environment\&amp;quot;:\&amp;quot;development\&amp;quot;,\&amp;quot;help_url\&amp;quot;:\&amp;quot;https://docs.github.com\&amp;quot;,\&amp;quot;hostname\&amp;quot;:\&amp;quot;github.com\&amp;quot;,\&amp;quot;is_project_page\&amp;quot;:true,\&amp;quot;is_user_page\&amp;quot;:false,\&amp;quot;issues_url\&amp;quot;:null,\&amp;quot;language\&amp;quot;:null,\&amp;quot;latest_release\&amp;quot;:false,\&amp;quot;license\&amp;quot;:null,\&amp;quot;organization_members\&amp;quot;:null,\&amp;quot;owner\&amp;quot;:{\&amp;quot;avatar_url\&amp;quot;:null,\&amp;quot;bio\&amp;quot;:null,\&amp;quot;blog\&amp;quot;:null,\&amp;quot;collaborators\&amp;quot;:null,\&amp;quot;company\&amp;quot;:null,\&amp;quot;created_at\&amp;quot;:null,\&amp;quot;description\&amp;quot;:null,\&amp;quot;email\&amp;quot;:null,\&amp;quot;followers\&amp;quot;:null,\&amp;quot;following\&amp;quot;:null,\&amp;quot;has_organization_projects\&amp;quot;:null,\&amp;quot;has_repository_projects\&amp;quot;:null,\&amp;quot;hireable\&amp;quot;:null,\&amp;quot;html_url\&amp;quot;:null,\&amp;quot;id\&amp;quot;:null,\&amp;quot;is_verified\&amp;quot;:null,\&amp;quot;location\&amp;quot;:null,\&amp;quot;login\&amp;quot;:null,\&amp;quot;name\&amp;quot;:null,\&amp;quot;node_id\&amp;quot;:null,\&amp;quot;public_gists\&amp;quot;:null,\&amp;quot;public_repos\&amp;quot;:null,\&amp;quot;type\&amp;quot;:null,\&amp;quot;updated_at\&amp;quot;:null},\&amp;quot;owner_display_name\&amp;quot;:null,\&amp;quot;owner_gravatar_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin.png\&amp;quot;,\&amp;quot;owner_name\&amp;quot;:\&amp;quot;LocaMartin\&amp;quot;,\&amp;quot;owner_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin\&amp;quot;,\&amp;quot;pages_env\&amp;quot;:\&amp;quot;development\&amp;quot;,\&amp;quot;pages_hostname\&amp;quot;:\&amp;quot;localhost:4000\&amp;quot;,\&amp;quot;private\&amp;quot;:null,\&amp;quot;project_tagline\&amp;quot;:null,\&amp;quot;project_title\&amp;quot;:\&amp;quot;testgit\&amp;quot;,\&amp;quot;public_repositories\&amp;quot;:[],\&amp;quot;releases\&amp;quot;:false,\&amp;quot;releases_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin/testgit/releases\&amp;quot;,\&amp;quot;repository_name\&amp;quot;:\&amp;quot;testgit\&amp;quot;,\&amp;quot;repository_nwo\&amp;quot;:\&amp;quot;LocaMartin/testgit\&amp;quot;,\&amp;quot;repository_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin/testgit\&amp;quot;,\&amp;quot;show_downloads\&amp;quot;:null,\&amp;quot;source\&amp;quot;:{\&amp;quot;branch\&amp;quot;:\&amp;quot;gh-pages\&amp;quot;,\&amp;quot;path\&amp;quot;:\&amp;quot;/\&amp;quot;},\&amp;quot;tar_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin/testgit/tarball/gh-pages\&amp;quot;,\&amp;quot;url\&amp;quot;:\&amp;quot;https://github.com/pages/LocaMartin/testgit\&amp;quot;,\&amp;quot;versions\&amp;quot;:{\&amp;quot;jekyll\&amp;quot;:\&amp;quot;3.10.0\&amp;quot;,\&amp;quot;jekyll-sass-converter\&amp;quot;:\&amp;quot;1.5.2\&amp;quot;,\&amp;quot;kramdown\&amp;quot;:\&amp;quot;2.4.0\&amp;quot;,\&amp;quot;kramdown-parser-gfm\&amp;quot;:\&amp;quot;1.1.0\&amp;quot;,\&amp;quot;jekyll-commonmark-ghpages\&amp;quot;:\&amp;quot;0.5.1\&amp;quot;,\&amp;quot;liquid\&amp;quot;:\&amp;quot;4.0.4\&amp;quot;,\&amp;quot;rouge\&amp;quot;:\&amp;quot;3.30.0\&amp;quot;,\&amp;quot;github-pages-health-check\&amp;quot;:\&amp;quot;1.18.2\&amp;quot;,\&amp;quot;jekyll-redirect-from\&amp;quot;:\&amp;quot;0.16.0\&amp;quot;,\&amp;quot;jekyll-sitemap\&amp;quot;:\&amp;quot;1.4.0\&amp;quot;,\&amp;quot;jekyll-feed\&amp;quot;:\&amp;quot;0.17.0\&amp;quot;,\&amp;quot;jekyll-gist\&amp;quot;:\&amp;quot;1.5.0\&amp;quot;,\&amp;quot;jekyll-paginate\&amp;quot;:\&amp;quot;1.1.0\&amp;quot;,\&amp;quot;jekyll-coffeescript\&amp;quot;:\&amp;quot;1.2.2\&amp;quot;,\&amp;quot;jekyll-seo-tag\&amp;quot;:\&amp;quot;2.8.0\&amp;quot;,\&amp;quot;jekyll-github-metadata\&amp;quot;:\&amp;quot;2.16.1\&amp;quot;,\&amp;quot;jekyll-avatar\&amp;quot;:\&amp;quot;0.8.0\&amp;quot;,\&amp;quot;jekyll-remote-theme\&amp;quot;:\&amp;quot;0.4.3\&amp;quot;,\&amp;quot;jekyll-include-cache\&amp;quot;:\&amp;quot;0.2.1\&amp;quot;,\&amp;quot;jemoji\&amp;quot;:\&amp;quot;0.13.0\&amp;quot;,\&amp;quot;jekyll-mentions\&amp;quot;:\&amp;quot;1.6.0\&amp;quot;,\&amp;quot;jekyll-relative-links\&amp;quot;:\&amp;quot;0.6.1\&amp;quot;,\&amp;quot;jekyll-optional-front-matter\&amp;quot;:\&amp;quot;0.3.2\&amp;quot;,\&amp;quot;jekyll-readme-index\&amp;quot;:\&amp;quot;0.3.0\&amp;quot;,\&amp;quot;jekyll-default-layout\&amp;quot;:\&amp;quot;0.1.5\&amp;quot;,\&amp;quot;jekyll-titles-from-headings\&amp;quot;:\&amp;quot;0.5.3\&amp;quot;,\&amp;quot;minima\&amp;quot;:\&amp;quot;2.5.1\&amp;quot;,\&amp;quot;jekyll-swiss\&amp;quot;:\&amp;quot;1.0.0\&amp;quot;,\&amp;quot;jekyll-theme-primer\&amp;quot;:\&amp;quot;0.6.0\&amp;quot;,\&amp;quot;jekyll-theme-architect\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-cayman\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-dinky\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-hacker\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-leap-day\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-merlot\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-midnight\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-minimal\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-modernist\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-slate\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-tactile\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;jekyll-theme-time-machine\&amp;quot;:\&amp;quot;0.2.0\&amp;quot;,\&amp;quot;ruby\&amp;quot;:\&amp;quot;3.3.8\&amp;quot;,\&amp;quot;github-pages\&amp;quot;:\&amp;quot;232\&amp;quot;,\&amp;quot;html-pipeline\&amp;quot;:\&amp;quot;2.14.3\&amp;quot;,\&amp;quot;sass\&amp;quot;:\&amp;quot;3.7.4\&amp;quot;,\&amp;quot;safe_yaml\&amp;quot;:\&amp;quot;1.0.5\&amp;quot;,\&amp;quot;nokogiri\&amp;quot;:\&amp;quot;1.19.4\&amp;quot;},\&amp;quot;wiki_url\&amp;quot;:null,\&amp;quot;zip_url\&amp;quot;:\&amp;quot;https://github.com/LocaMartin/testgit/zipball/gh-pages\&amp;quot;}&amp;lt;/code &amp;gt;&amp;lt;/pre &amp;gt;\n\n &amp;lt;/div &amp;gt;\n\n &amp;lt;script &amp;gt;\n    function filterVars() {\n        let input = document.getElementById(&amp;apos;search &amp;apos;).value.toLowerCase();\n        let cards = document.getElementsByClassName(&amp;apos;variable-card &amp;apos;);\n        \n        for (let i = 0; i &amp;lt; cards.length; i++) {\n            let name = cards[i].getAttribute(&amp;apos;data-name &amp;apos;);\n            if (name.includes(input)) {\n                cards[i].style.display = \&amp;quot;\&amp;quot;;\n            } else {\n                cards[i].style.display = \&amp;quot;none\&amp;quot;;\n            }\n        }\n    }\n &amp;lt;/script &amp;gt;\n &amp;lt;/body &amp;gt;\n &amp;lt;/html &amp;gt;\n &amp;quot;,
+  &amp;quot;## 1. Information Disclosure / Context Leak Tests\n\nCheck if the following tags render raw system strings, tokens, or environment details when viewed on the live platform:\n\n* **Global Site Objects:** </code>
+        {{ site | inspect }}<code class="language-plaintext highlighter-rouge">\n* **GitHub Metadata Dump:** </code>
+        {{ site.github | json }}<code class="language-plaintext highlighter-rouge">\n* **Environment Verification:** </code>
+        {{ site.env | inspect }}<code class="language-plaintext highlighter-rouge">\n* **Pages Collection Metadata:** </code>
+        {{ site.pages | inspect }}<code class="language-plaintext highlighter-rouge">\n\n---\n\n## 2. Cross-Site Scripting (XSS) / Filter Bypasses\n\n### Standard Script Tags\n &amp;lt;script &amp;gt;alert(document.domain)&amp;lt;/script &amp;gt;\n\n### URI Handler Scheme\n[Execute Test Payload](javascript:alert(document.cookie))\n\n &amp;lt;a href=\&amp;quot;javascript:alert(1)\&amp;quot;&amp;gt;Raw Anchor Link Test &amp;lt;/a &amp;gt;\n\n---\n\n## 3. Namespace Confusion via SVG </code>
+        foreignObject<code class="language-plaintext highlighter-rouge">\n\nThis test checks if the Markdown sanitizer scans inside embedded XML schemas. If successful, the image tag inside the XHTML body wrapper will execute.\n\n &amp;lt;svg width=\&amp;quot;200\&amp;quot; height=\&amp;quot;100\&amp;quot;&amp;gt;\n  &amp;lt;foreignObject width=\&amp;quot;200\&amp;quot; height=\&amp;quot;100\&amp;quot;&amp;gt;\n    &amp;lt;body xmlns=\&amp;quot;http://www.w3.org/1999/xhtml\&amp;quot;&amp;gt;\n      &amp;lt;img src=\&amp;quot;does-not-exist.jpg\&amp;quot; onerror=\&amp;quot;alert(&amp;apos;XSS-via-foreignObject &amp;apos;)\&amp;quot;&amp;gt;\n    &amp;lt;/body &amp;gt;\n  &amp;lt;/foreignObject &amp;gt;\n &amp;lt;/svg &amp;gt;\n\n---\n\n## 4. Deep Parser Stress Tests (ReDoS / Pipeline Timeout)\n\nThese strings test if the platform &amp;apos;s backend implementation of Kramdown handles deeply recursive nesting safely or if it stalls the build process.\n\n &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; Deep Blockquote Nesting\n\n[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[Deep Bracket Nesting]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]\n &amp;quot;,
+  &amp;quot;{{ site }}\n\n{{ page }}\n\n{{ site.github }}\n\n{{ site.pages }}\n\n{{ site.static_files }}\n\n{{ site.collections }}\n &amp;quot;,
+  &amp;quot;# HTML Processing\n\n &amp;lt;iframe src=\&amp;quot;https://example.com\&amp;quot;&amp;gt;&amp;lt;/iframe &amp;gt;\n\n &amp;lt;object data=\&amp;quot;test\&amp;quot;&amp;gt;&amp;lt;/object &amp;gt;\n\n &amp;lt;embed src=\&amp;quot;test\&amp;quot;&amp;gt;&amp;lt;/embed &amp;gt;\n\n &amp;lt;svg &amp;gt;\n  &amp;lt;animate attributeName=\&amp;quot;x\&amp;quot; /&amp;gt;\n &amp;lt;/svg &amp;gt;\n\n &amp;lt;details &amp;gt;\n  &amp;lt;summary &amp;gt;Click &amp;lt;/summary &amp;gt;\n  Hidden text\n &amp;lt;/details &amp;gt;\n &amp;quot;,
+  &amp;quot;| Component | Version | Source Code / Repository Link |\n| :--- | :--- | :--- |\n| **Core Engines &amp;amp; Interpreters** | | |\n| Ruby | 3.3.8 | [github.com/ruby/ruby](https://github.com/ruby/ruby/tree/v3_3_8) |\n| Jekyll | 3.10.0 | [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll/tree/v3.10.0) |\n| Liquid | 4.0.4 | [github.com/Shopify/liquid](https://github.com/Shopify/liquid/tree/v4.0.4) |\n| **Heavyweight Parsers &amp;amp; Security Layers** | | |\n| Nokogiri | 1.19.4 | [github.com/sparklemotion/nokogiri](https://github.com/sparklemotion/nokogiri/tree/v1.19.4) |\n| Safe YAML | 1.0.5 | [github.com/dtao/safe_yaml](https://github.com/dtao/safe_yaml/tree/1.0.5) |\n| HTML Pipeline | 2.14.3 | [github.com/gjtorikian/html-pipeline](https://github.com/gjtorikian/html-pipeline/tree/v2.14.3) |\n| Kramdown | 2.4.0 | [github.com/vmg/kramdown](https://github.com/vmg/kramdown/tree/2.4.0) |\n| Kramdown Parser GFM | 1.1.0 | [github.com/kramdown/parser-gfm](https://github.com/kramdown/parser-gfm/tree/v1.1.0) |\n| Rouge | 3.30.0 | [github.com/rouge-ruby/rouge](https://github.com/rouge-ruby/rouge/tree/v3.30.0) |\n| Sass | 3.7.4 | [github.com/sass/rubysass](https://github.com/sass/rubysass/tree/3.7.4) |\n| **GitHub Master Ecosystem &amp;amp; Extensions** | | |\n| github-pages (Meta-gem) | 232 | [github.com/github/pages-gem](https://github.com/github/pages-gem/tree/v232) |\n| jekyll-github-metadata | 2.16.1 | [github.com/github/jekyll-github-metadata](https://github.com/github/jekyll-github-metadata/tree/v2.16.1) |\n| jekyll-remote-theme | 0.4.3 | [github.com/github/jekyll-remote-theme](https://github.com/github/jekyll-remote-theme/tree/v0.4.3) |\n| github-pages-health-check | 1.18.2 | [github.com/github/github-pages-health-check](https://github.com/github/github-pages-health-check/tree/v1.18.2) |\n| jekyll-commonmark-ghpages | 0.5.1 | [github.com/github/jekyll-commonmark-ghpages](https://github.com/github/jekyll-commonmark-ghpages/tree/v0.5.1) |\n| **Jekyll Functional Plugins** | | |\n| jekyll-sass-converter | 1.5.2 | [github.com/jekyll/jekyll-sass-converter](https://github.com/jekyll/jekyll-sass-converter/tree/v1.5.2) |\n| jekyll-redirect-from | 0.16.0 | [github.com/jekyll/jekyll-redirect-from](https://github.com/jekyll/jekyll-redirect-from/tree/v0.16.0) |\n| jekyll-sitemap | 1.4.0 | [github.com/jekyll/jekyll-sitemap](https://github.com/jekyll/jekyll-sitemap/tree/v1.4.0) |\n| jekyll-feed | 0.17.0 | [github.com/jekyll/jekyll-feed](https://github.com/jekyll/jekyll-feed/tree/v0.17.0) |\n| jekyll-gist | 1.5.0 | [github.com/jekyll/jekyll-gist](https://github.com/jekyll/jekyll-gist/tree/v1.5.0) |\n| jekyll-paginate | 1.1.0 | [github.com/jekyll/jekyll-paginate](https://github.com/jekyll/jekyll-paginate/tree/v1.1.0) |\n| jekyll-coffeescript | 1.2.2 | [github.com/jekyll/jekyll-coffeescript](https://github.com/jekyll/jekyll-coffeescript/tree/v1.2.2) |\n| jekyll-seo-tag | 2.8.0 | [github.com/jekyll/jekyll-seo-tag](https://github.com/jekyll/jekyll-seo-tag/tree/v2.8.0) |\n| jekyll-avatar | 0.8.0 | [github.com/jekyll/jekyll-avatar](https://github.com/jekyll/jekyll-avatar/tree/v0.8.0) |\n| jekyll-include-cache | 0.2.1 | [github.com/jekyll/jekyll-include-cache](https://github.com/jekyll/jekyll-include-cache/tree/v0.2.1) |\n| jemoji | 0.13.0 | [github.com/jekyll/jemoji](https://github.com/jekyll/jemoji/tree/v0.13.0) |\n| jekyll-mentions | 1.6.0 | [github.com/jekyll/jekyll-mentions](https://github.com/jekyll/jekyll-mentions/tree/v1.6.0) |\n| jekyll-relative-links | 0.6.1 | [github.com/jekyll/jekyll-relative-links](https://github.com/jekyll/jekyll-relative-links/tree/v0.6.1) |\n| jekyll-optional-front-matter| 0.3.2 | [github.com/jekyll/jekyll-optional-front-matter](https://github.com/jekyll/jekyll-optional-front-matter/tree/v0.3.2) |\n| jekyll-readme-index | 0.3.0 | [github.com/jekyll/jekyll-readme-index](https://github.com/jekyll/jekyll-readme-index/tree/v0.3.0) |\n| jekyll-default-layout | 0.1.5 | [github.com/jekyll/jekyll-default-layout](https://github.com/jekyll/jekyll-default-layout/tree/v0.1.5) |\n| jekyll-titles-from-headings | 0.5.3 | [github.com/jekyll/jekyll-titles-from-headings](https://github.com/jekyll/jekyll-titles-from-headings/tree/v0.5.3) |\n| **Supported Whitelisted UI Themes** | | |\n| minima | 2.5.1 | [github.com/jekyll/minima](https://github.com/jekyll/minima/tree/v2.5.1) |\n| jekyll-swiss | 1.0.0 | [github.com/broccolini/swiss](https://github.com/broccolini/swiss/tree/v1.0.0) |\n| jekyll-theme-primer | 0.6.0 | [github.com/pages-themes/primer](https://github.com/pages-themes/primer/tree/v0.6.0) |\n| jekyll-theme-architect | 0.2.0 | [github.com/pages-themes/architect](https://github.com/pages-themes/architect/tree/v0.2.0) |\n| jekyll-theme-cayman | 0.2.0 | [github.com/pages-themes/cayman](https://github.com/pages-themes/cayman/tree/v0.2.0) |\n| jekyll-theme-dinky | 0.2.0 | [github.com/pages-themes/dinky](https://github.com/pages-themes/dinky/tree/v0.2.0) |\n| jekyll-theme-hacker | 0.2.0 | [github.com/pages-themes/hacker](https://github.com/pages-themes/hacker/tree/v0.2.0) |\n| jekyll-theme-leap-day | 0.2.0 | [github.com/pages-themes/leap-day](https://github.com/pages-themes/leap-day/tree/v0.2.0) |\n| jekyll-theme-merlot | 0.2.0 | [github.com/pages-themes/merlot](https://github.com/pages-themes/merlot/tree/v0.2.0) |\n| jekyll-theme-midnight | 0.2.0 | [github.com/pages-themes/midnight](https://github.com/pages-themes/midnight/tree/v0.2.0) |\n| jekyll-theme-minimal | 0.2.0 | [github.com/pages-themes/minimal](https://github.com/pages-themes/minimal/tree/v0.2.0) |\n| jekyll-theme-modernist | 0.2.0 | [github.com/pages-themes/modernist](https://github.com/pages-themes/modernist/tree/v0.2.0) |\n| jekyll-theme-slate | 0.2.0 | [github.com/pages-themes/slate](https://github.com/pages-themes/slate/tree/v0.2.0) |\n| jekyll-theme-tactile | 0.2.0 | [github.com/pages-themes/tactile](https://github.com/pages-themes/tactile/tree/v0.2.0) |\n| jekyll-theme-time-machine | 0.2.0 | [github.com/pages-themes/time-machine](https://github.com/pages-themes/time-machine/tree/v0.2.0) |\n &amp;quot;,
+  &amp;quot;{% comment %}\n{{ site.github.owner }}\n{{ site.github.repository_url }}\n{{ site.github.releases }}\n{{ site.github.latest_release }}\n{{ site.github.organization_members }}\n{{ site.github.public_repositories }}\n{{ site.github | jsonify }}\n{{ site | jsonify }}\n{{ page | jsonify }}\n{{ site.pages | jsonify }}\n{{ site.static_files | jsonify }}\n{{ site.collections | jsonify }}\n{{ site.data | jsonify }}\n{% for p in site.pages %}\n{{ p.path }}\n{% endfor %}\n{% for f in site.static_files %}\n{{ f.path }}\n{% endfor %}\n{% endcomment %}\n &amp;quot;,
+  &amp;quot;{% comment %}\n{{ site.github.owner }}\n{{ site.github.repository_url }}\n{{ site.github.releases }}\n{{ site.github.latest_release }}\n{{ site.github.organization_members }}\n{{ site.github.public_repositories }}\n{{ site.github | jsonify }}\n{{ site | jsonify }}\n{{ page | jsonify }}\n{{ site.pages | jsonify }}\n{{ site.static_files | jsonify }}\n{{ site.collections | jsonify }}\n{{ site.data | jsonify }}\n{% for p in site.pages %}\n{{ p.path }}\n{% endfor %}\n{% for f in site.static_files %}\n{{ f.path }}\n{% endfor %}\n{% endcomment %}\n &amp;quot;,
+  &amp;quot;# test-liquid.md\n\n---\n\n## title: Liquid Tests\n\n# Liquid Tests\n\nSite Title:\n\n{{ site.title }}\n\nSite Object:\n\n{{ site }}\n\nPage Object:\n\n{{ page }}\n\nAssign Test:\n\n{% assign x = site %}\n{{ x }}\n\nInclude Test:\n\n{% include test.html %}\n &amp;quot;,
+  &amp;quot;&amp;lt;?xml version=\&amp;quot;1.0\&amp;quot; encoding=\&amp;quot;UTF-8\&amp;quot;?&amp;gt;\n{% if page.xsl %}&amp;lt;?xml-stylesheet type=\&amp;quot;text/xsl\&amp;quot; href=\&amp;quot;{{ \&amp;quot;/sitemap.xsl\&amp;quot; | absolute_url }}\&amp;quot;?&amp;gt;\n{% endif %}&amp;lt;urlset xmlns:xsi=\&amp;quot;http://www.w3.org/2001/XMLSchema-instance\&amp;quot; xsi:schemaLocation=\&amp;quot;http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\&amp;quot; xmlns=\&amp;quot;http://www.sitemaps.org/schemas/sitemap/0.9\&amp;quot;&amp;gt;\n{% assign collections = site.collections | where_exp:&amp;apos;collection &amp;apos;,&amp;apos;collection.output != false &amp;apos; %}{% for collection in collections %}{% assign docs = collection.docs | where_exp:&amp;apos;doc &amp;apos;,&amp;apos;doc.sitemap != false &amp;apos; %}{% for doc in docs %}&amp;lt;url &amp;gt;\n &amp;lt;loc &amp;gt;{{ doc.url | replace:&amp;apos;/index.html &amp;apos;,&amp;apos;/&amp;apos; | absolute_url | xml_escape }}&amp;lt;/loc &amp;gt;\n{% if doc.last_modified_at or doc.date %}&amp;lt;lastmod &amp;gt;{{ doc.last_modified_at | default: doc.date | date_to_xmlschema }}&amp;lt;/lastmod &amp;gt;\n{% endif %}&amp;lt;/url &amp;gt;\n{% endfor %}{% endfor %}{% assign pages = site.html_pages | where_exp:&amp;apos;doc &amp;apos;,&amp;apos;doc.sitemap != false &amp;apos; | where_exp:&amp;apos;doc &amp;apos;,&amp;apos;doc.url != \&amp;quot;/404.html\&amp;quot;&amp;apos; %}{% for page in pages %}&amp;lt;url &amp;gt;\n &amp;lt;loc &amp;gt;{{ page.url | replace:&amp;apos;/index.html &amp;apos;,&amp;apos;/&amp;apos; | absolute_url | xml_escape }}&amp;lt;/loc &amp;gt;\n{% if page.last_modified_at %}&amp;lt;lastmod &amp;gt;{{ page.last_modified_at | date_to_xmlschema }}&amp;lt;/lastmod &amp;gt;\n{% endif %}&amp;lt;/url &amp;gt;\n{% endfor %}{% assign static_files = page.static_files | where_exp:&amp;apos;page &amp;apos;,&amp;apos;page.sitemap != false &amp;apos; | where_exp:&amp;apos;page &amp;apos;,&amp;apos;page.name != \&amp;quot;404.html\&amp;quot;&amp;apos; %}{% for file in static_files %}&amp;lt;url &amp;gt;\n &amp;lt;loc &amp;gt;{{ file.path | replace:&amp;apos;/index.html &amp;apos;,&amp;apos;/&amp;apos; | absolute_url | xml_escape }}&amp;lt;/loc &amp;gt;\n &amp;lt;lastmod &amp;gt;{{ file.modified_time | date_to_xmlschema }}&amp;lt;/lastmod &amp;gt;\n &amp;lt;/url &amp;gt;\n{% endfor %}&amp;lt;/urlset &amp;gt;\n &amp;quot;,
+  &amp;quot;Sitemap: {{ \&amp;quot;sitemap.xml\&amp;quot; | absolute_url }}\n &amp;quot;,
+  &amp;quot;&amp;lt;?xml version=\&amp;quot;1.0\&amp;quot; encoding=\&amp;quot;utf-8\&amp;quot;?&amp;gt;{% if page.xsl %}&amp;lt;?xml-stylesheet type=\&amp;quot;text/xml\&amp;quot; href=\&amp;quot;{{ &amp;apos;/feed.xslt.xml &amp;apos; | absolute_url }}\&amp;quot;?&amp;gt;{% endif %}&amp;lt;feed xmlns=\&amp;quot;http://www.w3.org/2005/Atom\&amp;quot; {% if site.lang %}xml:lang=\&amp;quot;{{ site.lang }}\&amp;quot;{% endif %}&amp;gt;&amp;lt;generator uri=\&amp;quot;https://jekyllrb.com/\&amp;quot; version=\&amp;quot;{{ jekyll.version }}\&amp;quot;&amp;gt;Jekyll &amp;lt;/generator &amp;gt;&amp;lt;link href=\&amp;quot;{{ page.url | absolute_url }}\&amp;quot; rel=\&amp;quot;self\&amp;quot; type=\&amp;quot;application/atom+xml\&amp;quot; /&amp;gt;&amp;lt;link href=\&amp;quot;{{ &amp;apos;/&amp;apos; | absolute_url }}\&amp;quot; rel=\&amp;quot;alternate\&amp;quot; type=\&amp;quot;text/html\&amp;quot; {% if site.lang %}hreflang=\&amp;quot;{{ site.lang }}\&amp;quot; {% endif %}/&amp;gt;&amp;lt;updated &amp;gt;{{ site.time | date_to_xmlschema }}&amp;lt;/updated &amp;gt;&amp;lt;id &amp;gt;{{ page.url | absolute_url | xml_escape }}&amp;lt;/id &amp;gt;{% assign title = site.title | default: site.name %}{% if page.collection != \&amp;quot;posts\&amp;quot; %}{% assign collection = page.collection | capitalize %}{% assign title = title | append: \&amp;quot; | \&amp;quot; | append: collection %}{% endif %}{% if page.category %}{% assign category = page.category | capitalize %}{% assign title = title | append: \&amp;quot; | \&amp;quot; | append: category %}{% endif %}{% if title %}&amp;lt;title type=\&amp;quot;html\&amp;quot;&amp;gt;{{ title | smartify | xml_escape }}&amp;lt;/title &amp;gt;{% endif %}{% if site.description %}&amp;lt;subtitle &amp;gt;{{ site.description | xml_escape }}&amp;lt;/subtitle &amp;gt;{% endif %}{% if site.author %}&amp;lt;author &amp;gt;&amp;lt;name &amp;gt;{{ site.author.name | default: site.author | xml_escape }}&amp;lt;/name &amp;gt;{% if site.author.email %}&amp;lt;email &amp;gt;{{ site.author.email | xml_escape }}&amp;lt;/email &amp;gt;{% endif %}{% if site.author.uri %}&amp;lt;uri &amp;gt;{{ site.author.uri | xml_escape }}&amp;lt;/uri &amp;gt;{% endif %}&amp;lt;/author &amp;gt;{% endif %}{% if page.tags %}{% assign posts = site.tags[page.tags] %}{% else %}{% assign posts = site[page.collection] %}{% endif %}{% if page.category %}{% assign posts = posts | where: \&amp;quot;categories\&amp;quot;, page.category %}{% endif %}{% unless site.show_drafts %}{% assign posts = posts | where_exp: \&amp;quot;post\&amp;quot;, \&amp;quot;post.draft != true\&amp;quot; %}{% endunless %}{% assign posts = posts | sort: \&amp;quot;date\&amp;quot; | reverse %}{% assign posts_limit = site.feed.posts_limit | default: 10 %}{% for post in posts limit: posts_limit %}&amp;lt;entry{% if post.lang %}{{\&amp;quot; \&amp;quot;}}xml:lang=\&amp;quot;{{ post.lang }}\&amp;quot;{% endif %}&amp;gt;{% assign post_title = post.title | smartify | strip_html | normalize_whitespace | xml_escape %}&amp;lt;title type=\&amp;quot;html\&amp;quot;&amp;gt;{{ post_title }}&amp;lt;/title &amp;gt;&amp;lt;link href=\&amp;quot;{{ post.url | absolute_url }}\&amp;quot; rel=\&amp;quot;alternate\&amp;quot; type=\&amp;quot;text/html\&amp;quot; title=\&amp;quot;{{ post_title }}\&amp;quot; /&amp;gt;&amp;lt;published &amp;gt;{{ post.date | date_to_xmlschema }}&amp;lt;/published &amp;gt;&amp;lt;updated &amp;gt;{{ post.last_modified_at | default: post.date | date_to_xmlschema }}&amp;lt;/updated &amp;gt;&amp;lt;id &amp;gt;{{ post.id | absolute_url | xml_escape }}&amp;lt;/id &amp;gt;{% assign excerpt_only = post.feed.excerpt_only | default: site.feed.excerpt_only %}{% unless excerpt_only %}&amp;lt;content type=\&amp;quot;html\&amp;quot; xml:base=\&amp;quot;{{ post.url | absolute_url | xml_escape }}\&amp;quot;&amp;gt;&amp;lt;![CDATA[{{ post.content | strip }}]]&amp;gt;&amp;lt;/content &amp;gt;{% endunless %}{% assign post_author = post.author | default: post.authors[0] | default: site.author %}{% assign post_author = site.data.authors[post_author] | default: post_author %}{% assign post_author_email = post_author.email | default: nil %}{% assign post_author_uri = post_author.uri | default: nil %}{% assign post_author_name = post_author.name | default: post_author %}&amp;lt;author &amp;gt;&amp;lt;name &amp;gt;{{ post_author_name | default: \&amp;quot;\&amp;quot; | xml_escape }}&amp;lt;/name &amp;gt;{% if post_author_email %}&amp;lt;email &amp;gt;{{ post_author_email | xml_escape }}&amp;lt;/email &amp;gt;{% endif %}{% if post_author_uri %}&amp;lt;uri &amp;gt;{{ post_author_uri | xml_escape }}&amp;lt;/uri &amp;gt;{% endif %}&amp;lt;/author &amp;gt;{% if post.category %}&amp;lt;category term=\&amp;quot;{{ post.category | xml_escape }}\&amp;quot; /&amp;gt;{% elsif post.categories %}{% for category in post.categories %}&amp;lt;category term=\&amp;quot;{{ category | xml_escape }}\&amp;quot; /&amp;gt;{% endfor %}{% endif %}{% for tag in post.tags %}&amp;lt;category term=\&amp;quot;{{ tag | xml_escape }}\&amp;quot; /&amp;gt;{% endfor %}{% assign post_summary = post.description | default: post.excerpt %}{% if post_summary and post_summary != empty %}&amp;lt;summary type=\&amp;quot;html\&amp;quot;&amp;gt;&amp;lt;![CDATA[{{ post_summary | strip_html | normalize_whitespace }}]]&amp;gt;&amp;lt;/summary &amp;gt;{% endif %}{% assign post_image = post.image.path | default: post.image %}{% if post_image %}{% unless post_image contains \&amp;quot;://\&amp;quot; %}{% assign post_image = post_image | absolute_url %}{% endunless %}&amp;lt;media:thumbnail xmlns:media=\&amp;quot;http://search.yahoo.com/mrss/\&amp;quot; url=\&amp;quot;{{ post_image | xml_escape }}\&amp;quot; /&amp;gt;&amp;lt;media:content medium=\&amp;quot;image\&amp;quot; url=\&amp;quot;{{ post_image | xml_escape }}\&amp;quot; xmlns:media=\&amp;quot;http://search.yahoo.com/mrss/\&amp;quot; /&amp;gt;{% endif %}&amp;lt;/entry &amp;gt;{% endfor %}&amp;lt;/feed &amp;gt;&amp;quot;
+],
+&amp;quot;time &amp;quot;: &amp;quot;2026-06-20 11:33:51 +0530 &amp;quot;,
+&amp;quot;posts &amp;quot;: [],
+&amp;quot;documents &amp;quot;: [],
+&amp;quot;related_posts &amp;quot;: null,
+&amp;quot;source &amp;quot;: &amp;quot;/home/loca/testgit &amp;quot;,
+&amp;quot;destination &amp;quot;: &amp;quot;/home/loca/testgit/_site &amp;quot;,
+&amp;quot;collections_dir &amp;quot;: &amp;quot;&amp;quot;,
+&amp;quot;plugins_dir &amp;quot;: &amp;quot;1e1e93b38f87aa090d3ee938838d132f &amp;quot;,
+&amp;quot;layouts_dir &amp;quot;: &amp;quot;_layouts &amp;quot;,
+&amp;quot;data_dir &amp;quot;: &amp;quot;_data &amp;quot;,
+&amp;quot;includes_dir &amp;quot;: &amp;quot;_includes &amp;quot;,
+&amp;quot;safe &amp;quot;: true,
+&amp;quot;include &amp;quot;: [
+  &amp;quot;.htaccess &amp;quot;
+],
+&amp;quot;exclude &amp;quot;: [
+  &amp;quot;Gemfile &amp;quot;,
+  &amp;quot;Gemfile.lock &amp;quot;,
+  &amp;quot;node_modules &amp;quot;,
+  &amp;quot;vendor/bundle/&amp;quot;,
+  &amp;quot;vendor/cache/&amp;quot;,
+  &amp;quot;vendor/gems/&amp;quot;,
+  &amp;quot;vendor/ruby/&amp;quot;,
+  &amp;quot;CNAME &amp;quot;
+],
+&amp;quot;keep_files &amp;quot;: [
+  &amp;quot;.git &amp;quot;,
+  &amp;quot;.svn &amp;quot;
+],
+&amp;quot;encoding &amp;quot;: &amp;quot;utf-8 &amp;quot;,
+&amp;quot;markdown_ext &amp;quot;: &amp;quot;markdown,mkdown,mkdn,mkd,md &amp;quot;,
+&amp;quot;strict_front_matter &amp;quot;: false,
+&amp;quot;show_drafts &amp;quot;: null,
+&amp;quot;limit_posts &amp;quot;: 0,
+&amp;quot;future &amp;quot;: false,
+&amp;quot;unpublished &amp;quot;: false,
+&amp;quot;whitelist &amp;quot;: [
+  &amp;quot;jekyll-coffeescript &amp;quot;,
+  &amp;quot;jekyll-commonmark-ghpages &amp;quot;,
+  &amp;quot;jekyll-feed &amp;quot;,
+  &amp;quot;jekyll-gist &amp;quot;,
+  &amp;quot;jekyll-github-metadata &amp;quot;,
+  &amp;quot;jekyll-paginate &amp;quot;,
+  &amp;quot;jekyll-redirect-from &amp;quot;,
+  &amp;quot;jekyll-seo-tag &amp;quot;,
+  &amp;quot;jekyll-sitemap &amp;quot;,
+  &amp;quot;jekyll-avatar &amp;quot;,
+  &amp;quot;jemoji &amp;quot;,
+  &amp;quot;jekyll-mentions &amp;quot;,
+  &amp;quot;jekyll-relative-links &amp;quot;,
+  &amp;quot;jekyll-optional-front-matter &amp;quot;,
+  &amp;quot;jekyll-readme-index &amp;quot;,
+  &amp;quot;jekyll-default-layout &amp;quot;,
+  &amp;quot;jekyll-titles-from-headings &amp;quot;,
+  &amp;quot;jekyll-include-cache &amp;quot;,
+  &amp;quot;jekyll-octicons &amp;quot;,
+  &amp;quot;jekyll-remote-theme &amp;quot;,
+  &amp;quot;jekyll-admin &amp;quot;
+],
+&amp;quot;plugins &amp;quot;: [
+  &amp;quot;jekyll-sitemap &amp;quot;,
+  &amp;quot;jekyll-feed &amp;quot;,
+  &amp;quot;jekyll-coffeescript &amp;quot;,
+  &amp;quot;jekyll-commonmark-ghpages &amp;quot;,
+  &amp;quot;jekyll-gist &amp;quot;,
+  &amp;quot;jekyll-github-metadata &amp;quot;,
+  &amp;quot;jekyll-paginate &amp;quot;,
+  &amp;quot;jekyll-relative-links &amp;quot;,
+  &amp;quot;jekyll-optional-front-matter &amp;quot;,
+  &amp;quot;jekyll-readme-index &amp;quot;,
+  &amp;quot;jekyll-default-layout &amp;quot;,
+  &amp;quot;jekyll-titles-from-headings &amp;quot;,
+  &amp;quot;jekyll-remote-theme &amp;quot;
+],
+&amp;quot;markdown &amp;quot;: &amp;quot;kramdown &amp;quot;,
+&amp;quot;highlighter &amp;quot;: &amp;quot;rouge &amp;quot;,
+&amp;quot;lsi &amp;quot;: false,
+&amp;quot;excerpt_separator &amp;quot;: &amp;quot;\n\n &amp;quot;,
+&amp;quot;incremental &amp;quot;: false,
+&amp;quot;detach &amp;quot;: false,
+&amp;quot;port &amp;quot;: &amp;quot;4000 &amp;quot;,
+&amp;quot;host &amp;quot;: &amp;quot;127.0.0.1 &amp;quot;,
+&amp;quot;baseurl &amp;quot;: null,
+&amp;quot;show_dir_listing &amp;quot;: false,
+&amp;quot;permalink &amp;quot;: &amp;quot;date &amp;quot;,
+&amp;quot;paginate_path &amp;quot;: &amp;quot;/page:num &amp;quot;,
+&amp;quot;timezone &amp;quot;: null,
+&amp;quot;quiet &amp;quot;: false,
+&amp;quot;verbose &amp;quot;: false,
+&amp;quot;defaults &amp;quot;: [],
+&amp;quot;liquid &amp;quot;: {
+  &amp;quot;error_mode &amp;quot;: &amp;quot;warn &amp;quot;,
+  &amp;quot;strict_filters &amp;quot;: false,
+  &amp;quot;strict_variables &amp;quot;: false
+},
+&amp;quot;rdiscount &amp;quot;: {
+  &amp;quot;extensions &amp;quot;: []
+},
+&amp;quot;redcarpet &amp;quot;: {
+  &amp;quot;extensions &amp;quot;: []
+},
+&amp;quot;kramdown &amp;quot;: {
+  &amp;quot;auto_ids &amp;quot;: true,
+  &amp;quot;toc_levels &amp;quot;: &amp;quot;1..6 &amp;quot;,
+  &amp;quot;entity_output &amp;quot;: &amp;quot;as_char &amp;quot;,
+  &amp;quot;smart_quotes &amp;quot;: &amp;quot;lsquo,rsquo,ldquo,rdquo &amp;quot;,
+  &amp;quot;input &amp;quot;: &amp;quot;GFM &amp;quot;,
+  &amp;quot;hard_wrap &amp;quot;: false,
+  &amp;quot;guess_lang &amp;quot;: true,
+  &amp;quot;footnote_nr &amp;quot;: 1,
+  &amp;quot;show_warnings &amp;quot;: false,
+  &amp;quot;gfm_quirks &amp;quot;: &amp;quot;paragraph_end &amp;quot;,
+  &amp;quot;syntax_highlighter_opts &amp;quot;: {
+    &amp;quot;default_lang &amp;quot;: &amp;quot;plaintext &amp;quot;,
+    &amp;quot;guess_lang &amp;quot;: true
+  },
+  &amp;quot;math_engine &amp;quot;: &amp;quot;mathjax &amp;quot;,
+  &amp;quot;syntax_highlighter &amp;quot;: &amp;quot;rouge &amp;quot;,
+  &amp;quot;template &amp;quot;: &amp;quot;&amp;quot;,
+  &amp;quot;coderay &amp;quot;: {},
+  &amp;quot;auto_ids &amp;quot;: true,
+  &amp;quot;toc_levels &amp;quot;: &amp;quot;1..6 &amp;quot;,
+  &amp;quot;entity_output &amp;quot;: &amp;quot;as_char &amp;quot;,
+  &amp;quot;smart_quotes &amp;quot;: &amp;quot;lsquo,rsquo,ldquo,rdquo &amp;quot;,
+  &amp;quot;input &amp;quot;: &amp;quot;GFM &amp;quot;,
+  &amp;quot;hard_wrap &amp;quot;: false,
+  &amp;quot;guess_lang &amp;quot;: true,
+  &amp;quot;footnote_nr &amp;quot;: 1,
+  &amp;quot;show_warnings &amp;quot;: false,
+  &amp;quot;gfm_quirks &amp;quot;: &amp;quot;paragraph_end &amp;quot;,
+  &amp;quot;syntax_highlighter_opts &amp;quot;: {
+    &amp;quot;default_lang &amp;quot;: &amp;quot;plaintext &amp;quot;,
+    &amp;quot;guess_lang &amp;quot;: true
+  },
+  &amp;quot;math_engine &amp;quot;: &amp;quot;mathjax &amp;quot;,
+  &amp;quot;syntax_highlighter &amp;quot;: &amp;quot;rouge &amp;quot;,
+  &amp;quot;template &amp;quot;: &amp;quot;&amp;quot;,
+  &amp;quot;coderay &amp;quot;: {}
+},
+&amp;quot;jailed &amp;quot;: false,
+&amp;quot;theme &amp;quot;: &amp;quot;testgit &amp;quot;,
+&amp;quot;title &amp;quot;: &amp;quot;Security Research Testbed &amp;quot;,
+&amp;quot;description &amp;quot;: &amp;quot;Pipeline Audit &amp;quot;,
+&amp;quot;remote_theme &amp;quot;: &amp;quot;LocaMartin/testgit &amp;quot;,
+&amp;quot;livereload_port &amp;quot;: 35729,
+&amp;quot;serving &amp;quot;: true,
+&amp;quot;watch &amp;quot;: true,
+&amp;quot;url &amp;quot;: &amp;quot;http://localhost:4000 &amp;quot;,
+&amp;quot;gist &amp;quot;: {
+  &amp;quot;noscript &amp;quot;: false
+},
+&amp;quot;github &amp;quot;: {
+  &amp;quot;api_url &amp;quot;: &amp;quot;https://api.github.com &amp;quot;,
+  &amp;quot;archived &amp;quot;: null,
+  &amp;quot;baseurl &amp;quot;: &amp;quot;/pages/LocaMartin/testgit &amp;quot;,
+  &amp;quot;build_revision &amp;quot;: &amp;quot;7ba1d051236d60435a56749b47909fabc2cd73c2 &amp;quot;,
+  &amp;quot;clone_url &amp;quot;: &amp;quot;https://github.com/LocaMartin/testgit.git &amp;quot;,
+  &amp;quot;contributors &amp;quot;: false,
+  &amp;quot;disabled &amp;quot;: null,
+  &amp;quot;environment &amp;quot;: &amp;quot;development &amp;quot;,
+  &amp;quot;help_url &amp;quot;: &amp;quot;https://docs.github.com &amp;quot;,
+  &amp;quot;hostname &amp;quot;: &amp;quot;github.com &amp;quot;,
+  &amp;quot;is_project_page &amp;quot;: true,
+  &amp;quot;is_user_page &amp;quot;: false,
+  &amp;quot;issues_url &amp;quot;: null,
+  &amp;quot;language &amp;quot;: null,
+  &amp;quot;latest_release &amp;quot;: false,
+  &amp;quot;license &amp;quot;: null,
+  &amp;quot;organization_members &amp;quot;: null,
+  &amp;quot;owner &amp;quot;: {
+    &amp;quot;avatar_url &amp;quot;: null,
+    &amp;quot;bio &amp;quot;: null,
+    &amp;quot;blog &amp;quot;: null,
+    &amp;quot;collaborators &amp;quot;: null,
+    &amp;quot;company &amp;quot;: null,
+    &amp;quot;created_at &amp;quot;: null,
+    &amp;quot;description &amp;quot;: null,
+    &amp;quot;email &amp;quot;: null,
+    &amp;quot;followers &amp;quot;: null,
+    &amp;quot;following &amp;quot;: null,
+    &amp;quot;has_organization_projects &amp;quot;: null,
+    &amp;quot;has_repository_projects &amp;quot;: null,
+    &amp;quot;hireable &amp;quot;: null,
+    &amp;quot;html_url &amp;quot;: null,
+    &amp;quot;id &amp;quot;: null,
+    &amp;quot;is_verified &amp;quot;: null,
+    &amp;quot;location &amp;quot;: null,
+    &amp;quot;login &amp;quot;: null,
+    &amp;quot;name &amp;quot;: null,
+    &amp;quot;node_id &amp;quot;: null,
+    &amp;quot;public_gists &amp;quot;: null,
+    &amp;quot;public_repos &amp;quot;: null,
+    &amp;quot;type &amp;quot;: null,
+    &amp;quot;updated_at &amp;quot;: null
+  },
+  &amp;quot;owner_display_name &amp;quot;: null,
+  &amp;quot;owner_gravatar_url &amp;quot;: &amp;quot;https://github.com/LocaMartin.png &amp;quot;,
+  &amp;quot;owner_name &amp;quot;: &amp;quot;LocaMartin &amp;quot;,
+  &amp;quot;owner_url &amp;quot;: &amp;quot;https://github.com/LocaMartin &amp;quot;,
+  &amp;quot;pages_env &amp;quot;: &amp;quot;development &amp;quot;,
+  &amp;quot;pages_hostname &amp;quot;: &amp;quot;localhost:4000 &amp;quot;,
+  &amp;quot;private &amp;quot;: null,
+  &amp;quot;project_tagline &amp;quot;: null,
+  &amp;quot;project_title &amp;quot;: &amp;quot;testgit &amp;quot;,
+  &amp;quot;public_repositories &amp;quot;: [],
+  &amp;quot;releases &amp;quot;: false,
+  &amp;quot;releases_url &amp;quot;: &amp;quot;https://github.com/LocaMartin/testgit/releases &amp;quot;,
+  &amp;quot;repository_name &amp;quot;: &amp;quot;testgit &amp;quot;,
+  &amp;quot;repository_nwo &amp;quot;: &amp;quot;LocaMartin/testgit &amp;quot;,
+  &amp;quot;repository_url &amp;quot;: &amp;quot;https://github.com/LocaMartin/testgit &amp;quot;,
+  &amp;quot;show_downloads &amp;quot;: null,
+  &amp;quot;source &amp;quot;: {
+    &amp;quot;branch &amp;quot;: &amp;quot;gh-pages &amp;quot;,
+    &amp;quot;path &amp;quot;: &amp;quot;/&amp;quot;
+  },
+  &amp;quot;tar_url &amp;quot;: &amp;quot;https://github.com/LocaMartin/testgit/tarball/gh-pages &amp;quot;,
+  &amp;quot;url &amp;quot;: &amp;quot;https://github.com/pages/LocaMartin/testgit &amp;quot;,
+  &amp;quot;versions &amp;quot;: {
+    &amp;quot;jekyll &amp;quot;: &amp;quot;3.10.0 &amp;quot;,
+    &amp;quot;jekyll-sass-converter &amp;quot;: &amp;quot;1.5.2 &amp;quot;,
+    &amp;quot;kramdown &amp;quot;: &amp;quot;2.4.0 &amp;quot;,
+    &amp;quot;kramdown-parser-gfm &amp;quot;: &amp;quot;1.1.0 &amp;quot;,
+    &amp;quot;jekyll-commonmark-ghpages &amp;quot;: &amp;quot;0.5.1 &amp;quot;,
+    &amp;quot;liquid &amp;quot;: &amp;quot;4.0.4 &amp;quot;,
+    &amp;quot;rouge &amp;quot;: &amp;quot;3.30.0 &amp;quot;,
+    &amp;quot;github-pages-health-check &amp;quot;: &amp;quot;1.18.2 &amp;quot;,
+    &amp;quot;jekyll-redirect-from &amp;quot;: &amp;quot;0.16.0 &amp;quot;,
+    &amp;quot;jekyll-sitemap &amp;quot;: &amp;quot;1.4.0 &amp;quot;,
+    &amp;quot;jekyll-feed &amp;quot;: &amp;quot;0.17.0 &amp;quot;,
+    &amp;quot;jekyll-gist &amp;quot;: &amp;quot;1.5.0 &amp;quot;,
+    &amp;quot;jekyll-paginate &amp;quot;: &amp;quot;1.1.0 &amp;quot;,
+    &amp;quot;jekyll-coffeescript &amp;quot;: &amp;quot;1.2.2 &amp;quot;,
+    &amp;quot;jekyll-seo-tag &amp;quot;: &amp;quot;2.8.0 &amp;quot;,
+    &amp;quot;jekyll-github-metadata &amp;quot;: &amp;quot;2.16.1 &amp;quot;,
+    &amp;quot;jekyll-avatar &amp;quot;: &amp;quot;0.8.0 &amp;quot;,
+    &amp;quot;jekyll-remote-theme &amp;quot;: &amp;quot;0.4.3 &amp;quot;,
+    &amp;quot;jekyll-include-cache &amp;quot;: &amp;quot;0.2.1 &amp;quot;,
+    &amp;quot;jemoji &amp;quot;: &amp;quot;0.13.0 &amp;quot;,
+    &amp;quot;jekyll-mentions &amp;quot;: &amp;quot;1.6.0 &amp;quot;,
+    &amp;quot;jekyll-relative-links &amp;quot;: &amp;quot;0.6.1 &amp;quot;,
+    &amp;quot;jekyll-optional-front-matter &amp;quot;: &amp;quot;0.3.2 &amp;quot;,
+    &amp;quot;jekyll-readme-index &amp;quot;: &amp;quot;0.3.0 &amp;quot;,
+    &amp;quot;jekyll-default-layout &amp;quot;: &amp;quot;0.1.5 &amp;quot;,
+    &amp;quot;jekyll-titles-from-headings &amp;quot;: &amp;quot;0.5.3 &amp;quot;,
+    &amp;quot;minima &amp;quot;: &amp;quot;2.5.1 &amp;quot;,
+    &amp;quot;jekyll-swiss &amp;quot;: &amp;quot;1.0.0 &amp;quot;,
+    &amp;quot;jekyll-theme-primer &amp;quot;: &amp;quot;0.6.0 &amp;quot;,
+    &amp;quot;jekyll-theme-architect &amp;quot;: &amp;quot;0.2.0 &amp;quot;,
+    &amp;quot;jekyll-theme-cayman &amp;quot;: &amp;quot;0.2.0 &amp;quot;,
+    &amp;quot;jekyll-theme-dinky &amp;quot;: &amp;quot;0.2.0 &amp;quot;,
+    &amp;quot;jekyll-theme-hacker &amp;quot;: &amp;quot;0.2.0 &amp;quot;,
+    &amp;quot;jekyll-theme-leap-day &amp;quot;: &amp;quot;0.2.0 &amp;quot;,
+    &amp;quot;jekyll-theme-merlot &amp;quot;: &amp;quot;0.2.0 &amp;quot;,
+    &amp;quot;jekyll-theme-midnight &amp;quot;: &amp;quot;0.2.0 &amp;quot;,
+    &amp;quot;jekyll-theme-minimal &amp;quot;: &amp;quot;0.2.0 &amp;quot;,
+    &amp;quot;jekyll-theme-modernist &amp;quot;: &amp;quot;0.2.0 &amp;quot;,
+    &amp;quot;jekyll-theme-slate &amp;quot;: &amp;quot;0.2.0 &amp;quot;,
+    &amp;quot;jekyll-theme-tactile &amp;quot;: &amp;quot;0.2.0 &amp;quot;,
+    &amp;quot;jekyll-theme-time-machine &amp;quot;: &amp;quot;0.2.0 &amp;quot;,
+    &amp;quot;ruby &amp;quot;: &amp;quot;3.3.8 &amp;quot;,
+    &amp;quot;github-pages &amp;quot;: &amp;quot;232 &amp;quot;,
+    &amp;quot;html-pipeline &amp;quot;: &amp;quot;2.14.3 &amp;quot;,
+    &amp;quot;sass &amp;quot;: &amp;quot;3.7.4 &amp;quot;,
+    &amp;quot;safe_yaml &amp;quot;: &amp;quot;1.0.5 &amp;quot;,
+    &amp;quot;nokogiri &amp;quot;: &amp;quot;1.19.4 &amp;quot;
+  },
+  &amp;quot;wiki_url &amp;quot;: null,
+  &amp;quot;zip_url &amp;quot;: &amp;quot;https://github.com/LocaMartin/testgit/zipball/gh-pages &amp;quot;
+}
+}</code>
+    </li>
+    <li>
+        <strong>GitHub Metadata Dump:</strong>
+        <code class="language-plaintext highlighter-rouge">{
+"api_url": "https://api.github.com",
+"archived": null,
+"baseurl": "/pages/LocaMartin/testgit",
+"build_revision": "7ba1d051236d60435a56749b47909fabc2cd73c2",
+"clone_url": "https://github.com/LocaMartin/testgit.git",
+"contributors": false,
+"disabled": null,
+"environment": "development",
+"help_url": "https://docs.github.com",
+"hostname": "github.com",
+"is_project_page": true,
+"is_user_page": false,
+"issues_url": null,
+"language": null,
+"latest_release": false,
+"license": null,
+"organization_members": null,
+"owner": {
+  "avatar_url": null,
+  "bio": null,
+  "blog": null,
+  "collaborators": null,
+  "company": null,
+  "created_at": null,
+  "description": null,
+  "email": null,
+  "followers": null,
+  "following": null,
+  "has_organization_projects": null,
+  "has_repository_projects": null,
+  "hireable": null,
+  "html_url": null,
+  "id": null,
+  "is_verified": null,
+  "location": null,
+  "login": null,
+  "name": null,
+  "node_id": null,
+  "public_gists": null,
+  "public_repos": null,
+  "type": null,
+  "updated_at": null
+},
+"owner_display_name": null,
+"owner_gravatar_url": "https://github.com/LocaMartin.png",
+"owner_name": "LocaMartin",
+"owner_url": "https://github.com/LocaMartin",
+"pages_env": "development",
+"pages_hostname": "localhost:4000",
+"private": null,
+"project_tagline": null,
+"project_title": "testgit",
+"public_repositories": [],
+"releases": false,
+"releases_url": "https://github.com/LocaMartin/testgit/releases",
+"repository_name": "testgit",
+"repository_nwo": "LocaMartin/testgit",
+"repository_url": "https://github.com/LocaMartin/testgit",
+"show_downloads": null,
+"source": {
+  "branch": "gh-pages",
+  "path": "/"
+},
+"tar_url": "https://github.com/LocaMartin/testgit/tarball/gh-pages",
+"url": "https://github.com/pages/LocaMartin/testgit",
+"versions": {
+  "jekyll": "3.10.0",
+  "jekyll-sass-converter": "1.5.2",
+  "kramdown": "2.4.0",
+  "kramdown-parser-gfm": "1.1.0",
+  "jekyll-commonmark-ghpages": "0.5.1",
+  "liquid": "4.0.4",
+  "rouge": "3.30.0",
+  "github-pages-health-check": "1.18.2",
+  "jekyll-redirect-from": "0.16.0",
+  "jekyll-sitemap": "1.4.0",
+  "jekyll-feed": "0.17.0",
+  "jekyll-gist": "1.5.0",
+  "jekyll-paginate": "1.1.0",
+  "jekyll-coffeescript": "1.2.2",
+  "jekyll-seo-tag": "2.8.0",
+  "jekyll-github-metadata": "2.16.1",
+  "jekyll-avatar": "0.8.0",
+  "jekyll-remote-theme": "0.4.3",
+  "jekyll-include-cache": "0.2.1",
+  "jemoji": "0.13.0",
+  "jekyll-mentions": "1.6.0",
+  "jekyll-relative-links": "0.6.1",
+  "jekyll-optional-front-matter": "0.3.2",
+  "jekyll-readme-index": "0.3.0",
+  "jekyll-default-layout": "0.1.5",
+  "jekyll-titles-from-headings": "0.5.3",
+  "minima": "2.5.1",
+  "jekyll-swiss": "1.0.0",
+  "jekyll-theme-primer": "0.6.0",
+  "jekyll-theme-architect": "0.2.0",
+  "jekyll-theme-cayman": "0.2.0",
+  "jekyll-theme-dinky": "0.2.0",
+  "jekyll-theme-hacker": "0.2.0",
+  "jekyll-theme-leap-day": "0.2.0",
+  "jekyll-theme-merlot": "0.2.0",
+  "jekyll-theme-midnight": "0.2.0",
+  "jekyll-theme-minimal": "0.2.0",
+  "jekyll-theme-modernist": "0.2.0",
+  "jekyll-theme-slate": "0.2.0",
+  "jekyll-theme-tactile": "0.2.0",
+  "jekyll-theme-time-machine": "0.2.0",
+  "ruby": "3.3.8",
+  "github-pages": "232",
+  "html-pipeline": "2.14.3",
+  "sass": "3.7.4",
+  "safe_yaml": "1.0.5",
+  "nokogiri": "1.19.4"
+},
+"wiki_url": null,
+"zip_url": "https://github.com/LocaMartin/testgit/zipball/gh-pages"
+}</code>
+    </li>
+    <li>
+        <strong>Environment Verification:</strong>
+        <code class="language-plaintext highlighter-rouge">nil</code>
+    </li>
+    <li>
+        <strong>Pages Collection Metadata:</strong>
+        <code class="language-plaintext highlighter-rouge">[#&amp;lt;Jekyll::Page @name=&amp;quot;debug.md &amp;quot;&amp;gt;, #&amp;lt;Jekyll::Page @name=&amp;quot;index.md &amp;quot;&amp;gt;, #&amp;lt;Jekyll::Page @name=&amp;quot;liquidexposure.md &amp;quot;&amp;gt;, #&amp;lt;Jekyll::Page @name=&amp;quot;test-html.md &amp;quot;&amp;gt;, #&amp;lt;Jekyll::Page @name=&amp;quot;leak.md &amp;quot;&amp;gt;, #&amp;lt;Jekyll::Page @name=&amp;quot;liquide.md &amp;quot;&amp;gt;, #&amp;lt;Jekyll::Page @name=&amp;quot;liquidexposure2.md &amp;quot;&amp;gt;, #&amp;lt;Jekyll::Page @name=&amp;quot;test-liquid.md &amp;quot;&amp;gt;, #&amp;lt;Jekyll:PageWithoutAFile @name=&amp;quot;sitemap.xml &amp;quot;&amp;gt;, #&amp;lt;Jekyll:PageWithoutAFile @name=&amp;quot;robots.txt &amp;quot;&amp;gt;, #&amp;lt;Jekyll::Page @name=&amp;quot;/feed.xml &amp;quot;&amp;gt;]</code>
+    </li>
+</ul>
+<hr/>
+<h2 id="2-cross-site-scripting-xss--filter-bypasses">2. Cross-Site Scripting (XSS) / Filter Bypasses</h2>
+<h3 id="standard-script-tags">Standard Script Tags</h3>
+<script>
+    alert(document.domain)
+</script>
+<h3 id="uri-handler-scheme">URI Handler Scheme</h3>
+<p>
+    <a href="javascript:alert(document.cookie)">Execute Test Payload</a>
+</p>
+<p>
+    <a href="javascript:alert(1)">Raw Anchor Link Test</a>
+</p>
+<hr/>
+<h2 id="3-namespace-confusion-via-svg-foreignobject">
+    3. Namespace Confusion via SVG <code class="language-plaintext highlighter-rouge">foreignObject</code>
+</h2>
+<p>This test checks if the Markdown sanitizer scans inside embedded XML schemas. If successful, the image tag inside the XHTML body wrapper will execute.</p>
+<svg width="200" height="100">
+    <foreignObject width="200" height="100">
+        <body xmlns="http://www.w3.org/1999/xhtml">
+            <img src="does-not-exist.jpg" onerror="alert('XSS-via-foreignObject')"/>
+        </body>
+    </foreignObject>
+</svg>
+<hr/>
+<h2 id="4-deep-parser-stress-tests-redos--pipeline-timeout">4. Deep Parser Stress Tests (ReDoS / Pipeline Timeout)</h2>
+<p>These strings test if the platform’s backend implementation of Kramdown handles deeply recursive nesting safely or if it stalls the build process.</p>
+<blockquote>
+    <blockquote>
+        <blockquote>
+            <blockquote>
+                <blockquote>
+                    <blockquote>
+                        <blockquote>
+                            <blockquote>
+                                <blockquote>
+                                    <blockquote>
+                                        <blockquote>
+                                            <blockquote>
+                                                <blockquote>
+                                                    <blockquote>
+                                                        <blockquote>
+                                                            <blockquote>
+                                                                <blockquote>
+                                                                    <blockquote>
+                                                                        <blockquote>
+                                                                            <blockquote>
+                                                                                <blockquote>
+                                                                                    <blockquote>
+                                                                                        <blockquote>
+                                                                                            <blockquote>
+                                                                                                <blockquote>
+                                                                                                    <blockquote>
+                                                                                                        <blockquote>
+                                                                                                            <blockquote>
+                                                                                                                <blockquote>
+                                                                                                                    <blockquote>
+                                                                                                                        <p>Deep Blockquote Nesting</p>
+                                                                                                                    </blockquote>
+                                                                                                                </blockquote>
+                                                                                                            </blockquote>
+                                                                                                        </blockquote>
+                                                                                                    </blockquote>
+                                                                                                </blockquote>
+                                                                                            </blockquote>
+                                                                                        </blockquote>
+                                                                                    </blockquote>
+                                                                                </blockquote>
+                                                                            </blockquote>
+                                                                        </blockquote>
+                                                                    </blockquote>
+                                                                </blockquote>
+                                                            </blockquote>
+                                                        </blockquote>
+                                                    </blockquote>
+                                                </blockquote>
+                                            </blockquote>
+                                        </blockquote>
+                                    </blockquote>
+                                </blockquote>
+                            </blockquote>
+                        </blockquote>
+                    </blockquote>
+                </blockquote>
+            </blockquote>
+        </blockquote>
+    </blockquote>
+</blockquote>
+<p>[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[Deep Bracket Nesting]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]</p>
