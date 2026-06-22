@@ -1,5 +1,0 @@
----
-string_test: !str "normal text"
-integer_test: !int 123
-binary_test: !binary |
-  R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7

