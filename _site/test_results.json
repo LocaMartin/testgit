@@ -1,0 +1,12 @@
+---
+permalink: /test_results.json
+layout: none
+---
+{
+  "ruby_out": "{{ site.data.multi_test.ruby_code_test | inspect | escape }}",
+  "bash_out": "{{ site.data.multi_test.bash_command_test | inspect | escape }}",
+  "html_out": "{{ site.data.multi_test.html_markup_test | inspect | escape }}",
+  "system_out": "{{ site.data.multi_test.system_query_test | inspect | escape }}",
+  "path_out": "{{ site.data.multi_test.path_reference_test | inspect | escape }}",
+  "combined_out": "{{ site.data.multi_test.combined_header_test | inspect | escape }}"
+}
