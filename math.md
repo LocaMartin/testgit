@@ -1,3 +1,3 @@
 # result
 
-{{ site.data.confuse.math_test | inspect | escape }}
+{{ site.data.math.math_test | inspect | escape }}
