@@ -1,0 +1,68 @@
+name: Pages PR Artifact Boundary Probe
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+  workflow_run:
+    workflows:
+      - Pages PR Artifact Boundary Probe
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+jobs:
+  pr-upload:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build PR-controlled Pages artifact
+        run: |
+          set -eu
+          mkdir -p probe-site
+          cat > probe-site/index.html <<EOF
+          PR_ARTIFACT_BOUNDARY_PROBE
+          pr=${{ github.event.pull_request.number }}
+          head_repo=${{ github.event.pull_request.head.repo.full_name }}
+          head_sha=${{ github.event.pull_request.head.sha }}
+          run_id=${{ github.run_id }}
+          EOF
+
+      - name: Upload PR artifact named github-pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages
+          path: probe-site
+
+  trusted-deploy-after-pr:
+    if: >-
+      ${{
+        github.event_name == 'workflow_run' &&
+        github.event.workflow_run.event == 'pull_request' &&
+        github.event.workflow_run.conclusion == 'success'
+      }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Record triggering PR run
+        run: |
+          echo "trigger_run_id=${{ github.event.workflow_run.id }}"
+          echo "trigger_head_repository=${{ github.event.workflow_run.head_repository.full_name }}"
+          echo "trigger_head_sha=${{ github.event.workflow_run.head_sha }}"
+
+      - name: Deploy with no current-run artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages
