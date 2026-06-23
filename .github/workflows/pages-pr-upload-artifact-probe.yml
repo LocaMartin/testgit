@@ -1,0 +1,33 @@
+name: PR Pages Artifact Upload Probe
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: read
+
+jobs:
+  upload-pr-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build PR-controlled Pages artifact
+        run: |
+          set -eu
+          mkdir -p probe-site
+          cat > probe-site/index.html <<EOF
+          PR_ARTIFACT_BOUNDARY_PROBE
+          pr=${{ github.event.pull_request.number }}
+          head_repo=${{ github.event.pull_request.head.repo.full_name }}
+          head_sha=${{ github.event.pull_request.head.sha }}
+          run_id=${{ github.run_id }}
+          EOF
+
+      - name: Upload PR artifact named github-pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages
+          path: probe-site
