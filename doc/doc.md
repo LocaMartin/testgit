@@ -1,3 +1,142 @@
+binary decoder of github pages (!binary) takes binary data in base64 and decode it its not printable like you can use filter like inspect and escape (try raw binary payloads)
+
+┌──(loca㉿loca)-[~/testgit/doc]
+└─$ curl -I https://locamartin.github.io/testgit/index.josn                                            
+HTTP/2 200 
+server: GitHub.com
+content-type: application/octet-stream
+last-modified: Mon, 22 Jun 2026 15:57:32 GMT
+access-control-allow-origin: *
+strict-transport-security: max-age=31556952
+etag: "6a395b6c-21"
+expires: Mon, 22 Jun 2026 16:21:17 GMT
+cache-control: max-age=600
+x-proxy-cache: MISS
+x-github-request-id: 1D9E:2E79D4:3A78:42DF:6A395EA4
+accept-ranges: bytes
+date: Mon, 22 Jun 2026 16:12:03 GMT
+via: 1.1 varnish
+age: 46
+x-served-by: cache-ccu830047-CCU
+x-cache: HIT
+x-cache-hits: 1
+x-timer: S1782144723.391206,VS0,VE1
+vary: Accept-Encoding
+x-fastly-request-id: 1673e671bbca5a488b8d39edbe18134f3bfaf62b
+content-length: 33
+
+                                                                                                                                                                                                                                              
+┌──(loca㉿loca)-[~/testgit/doc]
+└─$ curl -I https://locamartin.github.io/testgit/index.html
+HTTP/2 200 
+server: GitHub.com
+content-type: text/html; charset=utf-8
+last-modified: Mon, 22 Jun 2026 15:57:32 GMT
+access-control-allow-origin: *
+strict-transport-security: max-age=31556952
+etag: "6a395b6c-21"
+expires: Mon, 22 Jun 2026 16:22:19 GMT
+cache-control: max-age=600
+x-proxy-cache: MISS
+x-github-request-id: A44A:3E33EA:3981:428D:6A395EE3
+accept-ranges: bytes
+age: 0
+date: Mon, 22 Jun 2026 16:12:19 GMT
+via: 1.1 varnish
+x-served-by: cache-ccu830039-CCU
+x-cache: MISS
+x-cache-hits: 0
+x-timer: S1782144740.576285,VS0,VE270
+vary: Accept-Encoding
+x-fastly-request-id: 694527efa75485e7d1164387c41a43c464593a37
+content-length: 33
+
+                                                                                                                                                                                                                                              
+┌──(loca㉿loca)-[~/testgit/doc]
+└─$ curl -I https://locamartin.github.io/testgit/index.md  
+HTTP/2 200 
+server: GitHub.com
+content-type: text/markdown; charset=utf-8
+last-modified: Mon, 22 Jun 2026 15:57:32 GMT
+access-control-allow-origin: *
+strict-transport-security: max-age=31556952
+etag: "6a395b6c-21"
+expires: Mon, 22 Jun 2026 16:22:36 GMT
+cache-control: max-age=600
+x-proxy-cache: MISS
+x-github-request-id: 2424:64C4F:37D3:40F4:6A395EF2
+accept-ranges: bytes
+age: 0
+date: Mon, 22 Jun 2026 16:12:36 GMT
+via: 1.1 varnish
+x-served-by: cache-ccu830037-CCU
+x-cache: MISS
+x-cache-hits: 0
+x-timer: S1782144756.962123,VS0,VE263
+vary: Accept-Encoding
+x-fastly-request-id: 3dfb57246ea3cf4769899955c37446cdd3776075
+content-length: 33
+
+                                                                                                                                                                                                                                              
+┌──(loca㉿loca)-[~/testgit/doc]
+└─$ curl -I https://locamartin.github.io/testgit/index.rb
+HTTP/2 200 
+server: GitHub.com
+content-type: application/octet-stream
+last-modified: Mon, 22 Jun 2026 15:57:32 GMT
+access-control-allow-origin: *
+strict-transport-security: max-age=31556952
+etag: "6a395b6c-21"
+expires: Mon, 22 Jun 2026 16:27:00 GMT
+cache-control: max-age=600
+x-proxy-cache: MISS
+x-github-request-id: C1D0:21659E:44C7:5059:6A395FFB
+accept-ranges: bytes
+age: 0
+date: Mon, 22 Jun 2026 16:17:00 GMT
+via: 1.1 varnish
+x-served-by: cache-ccu830042-CCU
+x-cache: MISS
+x-cache-hits: 0
+x-timer: S1782145020.161274,VS0,VE254
+vary: Accept-Encoding
+x-fastly-request-id: ce5a9066815f94fecc9c66382569c06f67411075
+content-length: 33
+
+                                                                                                                                                                                                                                              
+┌──(loca㉿loca)-[~/testgit/doc]
+└─$ nano doc.md
+                                                                                                                                                                                                                                              
+┌──(loca㉿loca)-[~/testgit/doc]
+└─$ curl -I https://locamartin.github.io/testgit/index.java
+HTTP/2 200 
+server: GitHub.com
+content-type: text/x-java-source
+last-modified: Mon, 22 Jun 2026 15:57:32 GMT
+access-control-allow-origin: *
+strict-transport-security: max-age=31556952
+etag: "6a395b6c-21"
+expires: Mon, 22 Jun 2026 16:29:16 GMT
+cache-control: max-age=600
+x-proxy-cache: MISS
+x-github-request-id: 1A8C:296DB8:5388:6075:6A396081
+accept-ranges: bytes
+age: 0
+date: Mon, 22 Jun 2026 16:19:16 GMT
+via: 1.1 varnish
+x-served-by: cache-ccu830023-CCU
+x-cache: MISS
+x-cache-hits: 0
+x-timer: S1782145157.596794,VS0,VE258
+vary: Accept-Encoding
+x-fastly-request-id: 6fa4d15c85192c2821f0bce40b2681a467719c02
+content-length: 33
+
+
+hosting json & ruby file with html/md syntax init trys to download when visited in browser but hosting ohter file type java,yml with html/md init shows raw text in browser java never asked to be donloaded
+
+if index.md and index.html hosted at same time index.md show raw text and index.html show html content (html file priority)
+
 lets first make note of every finding we did til now in markdown format like front matter injection works and leads to stored xss and potential RCE we used git "issue" to test external input and {{ site.pages }} executes even if its a json file and https://locamartin.github.io/testgit/billion.html does not billion.md execute but   "total_pages": "{{ site.pages | size }}",
 
   "first_page_meta": "{{ site.pages.first | inspect | escape }}"
