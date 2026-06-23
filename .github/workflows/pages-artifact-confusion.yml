@@ -1,0 +1,92 @@
+name: Pages Artifact Confusion Probe
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Probe mode"
+        required: true
+        default: "upload_only"
+        type: choice
+        options:
+          - upload_only
+          - deploy_only
+          - wrong_name
+      marker:
+        description: "Unique marker for artifact body"
+        required: false
+        default: "manual"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  upload-only:
+    if: ${{ inputs.mode == 'upload_only' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build attacker-style Pages artifact
+        run: |
+          set -eu
+          mkdir -p probe-site
+          cat > probe-site/index.html <<EOF
+          ARTIFACT_CONFUSION_UPLOAD_ONLY
+          marker=${{ inputs.marker }}
+          run_id=${{ github.run_id }}
+          sha=${{ github.sha }}
+          EOF
+      - name: Upload artifact named github-pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages
+          path: probe-site
+
+  deploy-only:
+    if: ${{ inputs.mode == 'deploy_only' }}
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy with no current-run artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages
+
+  wrong-name:
+    if: ${{ inputs.mode == 'wrong_name' }}
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Build wrong-name artifact
+        run: |
+          set -eu
+          mkdir -p wrong-site
+          cat > wrong-site/index.html <<EOF
+          ARTIFACT_CONFUSION_WRONG_NAME
+          marker=${{ inputs.marker }}
+          run_id=${{ github.run_id }}
+          sha=${{ github.sha }}
+          EOF
+      - name: Upload artifact with non-default name
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages-attacker
+          path: wrong-site
+      - name: Deploy default artifact name
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages
